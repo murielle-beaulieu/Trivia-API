@@ -1,17 +1,26 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./counter/counterSlice";
-import { triviaApiSlice } from "./trivia/triviaSlice";
+import { triviaApiSlice, triviaCategorySlice } from "./trivia/triviaSlice";
 
 // create the store
 export const store = configureStore({
     reducer: {
         // you can have as many slice as you want
         // each slice is responsible for it's own state
+
+        //counter 
         counter: counterReducer,
+
+        // trivia api
         [triviaApiSlice.reducerPath]: triviaApiSlice.reducer,
+
+        // categories
+        [triviaCategorySlice.reducerPath]: triviaCategorySlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(triviaApiSlice.middleware),
+        // getDefaultMiddleware().concat(triviaApiSlice.middleware),
+         getDefaultMiddleware().concat(triviaCategorySlice.middleware, triviaApiSlice.middleware),
+
 })
 
 // export your types

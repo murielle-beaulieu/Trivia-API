@@ -1,0 +1,17 @@
+.question_card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40em;
+    width: 40em;
+    margin: auto;
+    padding: 2em;
+    border: 1em solid black;
+}
+
+.question_answers {
+ display: flex;
+ flex-direction: column;
+ gap: 1em;
+}
