@@ -1,17 +1,21 @@
-import './App.css'
-import Counter from "./components/Counter";
-import { Trivia } from './state/trivia/trivia';
-
+import "./App.css";
+import { Provider } from "react-redux";
+import { store } from "./state/store.ts";
+import { BrowserRouter, Route, Routes } from "react-router";
+import SettingsPage from "./pages/SettingsPage.tsx";
+import GamePage from "./pages/GamePage.tsx";
 
 function App() {
-
   return (
-    <>
-      <h2>First attempt at Redux</h2>
-      <Trivia/>
-      <Counter/>
-    </>
-  )
+    <BrowserRouter>
+      <Provider store={store}>
+        <Routes>
+          <Route path="/" element={<GamePage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+        </Routes>
+      </Provider>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

@@ -12,14 +12,13 @@
 //         ]
 //     },
 
-
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 
 interface TriviaQuestion {
     type: string
     difficulty: string
-    category: string
+    category: TriviaCategory
     question: string
     correct_answer: string
     incorrect_answers: string[]
@@ -38,16 +37,47 @@ interface TriviaApiResponse {
 // Query with additional parameters
 // https://opentdb.com/api.php?amount=19&category=13&difficulty=hard&type=multiple
 
+// {
+//     "trivia_categories": [
+//         {
+//             "id": 9,
+//             "name": "General Knowledge"
+//         },
+
+interface TriviaCategory {
+    id: number
+    name: string
+}
+
+interface TriviaCategoriesResponse {
+    trivia_categories: TriviaCategory[]
+}
+
+
+export const triviaCategorySlice = createApi({
+    baseQuery: fetchBaseQuery({ baseUrl: "https://opentdb.com/api_category.php" }),
+    reducerPath: "triviaCategories",
+    tagTypes: ["Categories"],
+    endpoints: build => ({
+        getCategories: build.query<TriviaCategoriesResponse, void>({
+        query: () => "",
+        
+        }),
+    }),
+})
+
 export const triviaApiSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: "https://opentdb.com/api.php" }),
     reducerPath: "triviaApi",
     tagTypes: ["Questions"],
     endpoints: build => ({
         getQuestions: build.query<TriviaApiResponse, number>({
-            query: (amount = 10, category = 24, difficulty = 'hard',type = 'multiple') => `?amount=${amount}&category=${category}&difficulty=${difficulty}&type=${type}`,
+            // here I want to add the selected options of the game settings
+            query: (amount = 10, category = 15, difficulty = 'medium',type = 'multiple') => `?amount=${amount}&category=${category}&difficulty=${difficulty}&type=${type}`,
             providesTags: (result, error, id) => [{type: "Questions", id}]
         }),
     }),
 })
 
 export const { useGetQuestionsQuery } = triviaApiSlice;
+export const { useGetCategoriesQuery } = triviaCategorySlice;

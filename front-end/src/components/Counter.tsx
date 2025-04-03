@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../state/store";
-import { decrement, incrementAsync } from "../state/counter/counterSlice";
+import { decrement, increment} from "../state/counter/counterSlice";
 
 
 const Counter = () => {
@@ -15,11 +15,11 @@ const Counter = () => {
         <div>
             <h2>{count}</h2>
             <div>
-                <button onClick={()=> dispatch(incrementAsync(10))}>
-                    Increment
-                </button>
                 <button onClick={()=> dispatch(decrement())}>
                     Decrement
+                </button>
+                <button onClick={()=> dispatch(increment())}>
+                    Increment
                 </button>
             </div>
         </div>
