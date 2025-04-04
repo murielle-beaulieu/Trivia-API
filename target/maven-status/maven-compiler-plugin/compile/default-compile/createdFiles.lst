@@ -1,0 +1,5 @@
+io/nology/trivia_api/TriviaApiApplication.class
+io/nology/trivia_api/QuizResult/QuizResult.class
+io/nology/trivia_api/User/User.class
+io/nology/trivia_api/QuizResult/QuizResult$Difficulty.class
+io/nology/trivia_api/QuizQuestion/QuizQuestion.class
