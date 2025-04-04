@@ -1,4 +1,17 @@
 /Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/QuizQuestion/QuizQuestion.java
 /Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/QuizResult/QuizResult.java
 /Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/TriviaApiApplication.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/User/Role.java
 /Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/User/User.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/User/UserRepository.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/User/UserService.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/auth/AuthController.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/auth/AuthLoginDTO.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/auth/AuthRegisterDTO.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/auth/AuthResponse.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/auth/AuthService.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/config/AppConfig.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/config/JwtAuthFilter.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/config/JwtService.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/config/SecurityConfig.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/greeting/GreetingController.java
