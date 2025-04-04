@@ -1,11 +1,18 @@
 package io.nology.trivia_api.User;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import io.nology.trivia_api.QuizResult.QuizResult;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,32 +20,33 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
 @Entity
 @Table(name = "users")
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-public class User {
+public class User implements UserDetails {
 
     @Id
+    @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
-    private String first_name;
+    private String firstName;
 
     @Column
-    private String last_name;
+    private String lastName;
 
     @Column
     private String email;
 
     @Column
     private String password;
+
+    @Enumerated(EnumType.STRING)
+	private Role role;
 
     @Column
     private LocalDateTime createdAt;
@@ -57,9 +65,49 @@ public class User {
     public void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
+
+    public User() {}
+
+	public User(String firstName, String lastName, String email, String password) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.role = Role.STANDARD_USER;
+	}
     
     // one employee can have many quizzes
     @OneToMany()
     private List<QuizResult> quizzes;
+
+    @Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of(new SimpleGrantedAuthority(this.role.name()));
+	}
+
+	@Override
+	public String getUsername() {
+		return this.email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 
 }
