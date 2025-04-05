@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig {
 	
 	private final JwtAuthFilter jwtAuthFilter;
-	
+
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
@@ -29,7 +29,7 @@ public class SecurityConfig {
 				.permitAll()
 				.requestMatchers("/auth/login")
 				.permitAll()
-				.requestMatchers("/greetings/public")
+				.requestMatchers("/quiz-results/test")
 				.permitAll()
 				.anyRequest()
 				.authenticated()
