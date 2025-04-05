@@ -1,5 +1,8 @@
 /Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/QuizQuestion/QuizQuestion.java
 /Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/QuizResult/QuizResult.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/QuizResult/QuizResultController.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/QuizResult/QuizResultRepository.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/QuizResult/QuizResultService.java
 /Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/TriviaApiApplication.java
 /Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/User/Role.java
 /Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/User/User.java

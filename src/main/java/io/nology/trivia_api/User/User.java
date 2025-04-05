@@ -110,4 +110,9 @@ public class User implements UserDetails {
 		return true;
 	}
 
+    @Override
+    public String getPassword() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }
