@@ -1,8 +1,13 @@
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/Quiz/Quiz.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/Quiz/QuizController.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/Quiz/QuizDTO.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/Quiz/QuizRepository.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/Quiz/QuizService.java
 /Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/QuizQuestion/QuizQuestion.java
-/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/QuizResult/QuizResult.java
-/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/QuizResult/QuizResultController.java
-/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/QuizResult/QuizResultRepository.java
-/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/QuizResult/QuizResultService.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/QuizQuestion/QuizQuestionController.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/QuizQuestion/QuizQuestionDTO.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/QuizQuestion/QuizQuestionRepository.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/QuizQuestion/QuizQuestionService.java
 /Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/TriviaApiApplication.java
 /Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/User/Role.java
 /Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/User/User.java
@@ -16,5 +21,7 @@
 /Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/config/AppConfig.java
 /Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/config/JwtAuthFilter.java
 /Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/config/JwtService.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/config/ModelMapperConfig.java
 /Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/config/SecurityConfig.java
+/Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/config/WebConfig.java
 /Users/muriellebeaulieu/Nology/Projects/Trivia-API/src/main/java/io/nology/trivia_api/greeting/GreetingController.java

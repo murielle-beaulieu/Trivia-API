@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import io.nology.trivia_api.QuizResult.QuizResult;
+import io.nology.trivia_api.Quiz.Quiz;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -78,7 +78,7 @@ public class User implements UserDetails {
     
     // one employee can have many quizzes
     @OneToMany()
-    private List<QuizResult> quizzes;
+    private List<Quiz> quizzes;
 
     @Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -110,9 +110,16 @@ public class User implements UserDetails {
 		return true;
 	}
 
-    @Override
-    public String getPassword() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
 }
+
+// {
+//     "firstName":"Mu",
+//     "lastName":"Bu",
+//     "email":"mu@work.com",
+//     "password":"pass"
+// }
+
+// {
+//     "email":"mu@work.com",
+//     "password":"pass"
+// }
