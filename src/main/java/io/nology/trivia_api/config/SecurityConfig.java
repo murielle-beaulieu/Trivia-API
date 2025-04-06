@@ -29,7 +29,7 @@ public class SecurityConfig {
 				.permitAll()
 				.requestMatchers("/auth/login")
 				.permitAll()
-				.requestMatchers("/quiz-results/test")
+				.requestMatchers("/quizzes", "/quiz-questions")
 				.permitAll()
 				.anyRequest()
 				.authenticated()

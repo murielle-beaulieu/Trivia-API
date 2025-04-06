@@ -1,4 +1,4 @@
-package io.nology.trivia_api.QuizResult;
+package io.nology.trivia_api.Quiz;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,8 +29,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="quiz_results")
-public class QuizResult {
+@Table(name="quizzes")
+public class Quiz {
 
     public enum Difficulty {
         EASY,
@@ -58,13 +58,14 @@ public class QuizResult {
     @Column
     private Difficulty difficulty; 
 
+
+    @OneToMany(mappedBy="quizzes") 
+    List<QuizQuestion> quiz_questions;
+
     @PrePersist
     public void onCreate() {
         LocalDateTime timestamp = LocalDateTime.now();
         createdAt = timestamp;
     }
-
-    @OneToMany
-    private List<QuizQuestion> questions;
 
 }
