@@ -56,6 +56,9 @@ public class Quiz {
     private Long score;
 
     @Column
+    private Boolean has_won;
+
+    @Column
     private Difficulty difficulty; 
 
 

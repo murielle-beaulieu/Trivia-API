@@ -15,7 +15,9 @@ class QuizDTO {
 
     private Long userId;
 
-    private Long score; // should be between 0 and 10
+    private Long score;
+
+    private Boolean has_won;
 
     private Difficulty difficulty; 
 

@@ -111,3 +111,15 @@ public class User implements UserDetails {
 	}
 
 }
+
+// {
+//     "firstName":"Mu",
+//     "lastName":"Bu",
+//     "email":"mu@work.com",
+//     "password":"pass"
+// }
+
+// {
+//     "email":"mu@work.com",
+//     "password":"pass"
+// }

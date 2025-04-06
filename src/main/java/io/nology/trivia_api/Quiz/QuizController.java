@@ -36,6 +36,18 @@ public class QuizController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping("/won")
+    public ResponseEntity<List<Quiz>> getQuizzesWon() {
+        List<Quiz> allQuizzesWon = this.quizService.getAllQuizzesWon();
+        return new ResponseEntity<>(allQuizzesWon, HttpStatus.OK);
+    }
+
+    @GetMapping("/lost")
+    public ResponseEntity<List<Quiz>> getQuizzesLost() {
+        List<Quiz> allQuizzesLost = this.quizService.getAllQuizzesLost();
+        return new ResponseEntity<>(allQuizzesLost, HttpStatus.OK);
+    }
+    
     @PostMapping()
     public ResponseEntity<Quiz> createQuiz(@RequestBody @Valid QuizDTO data) throws Exception {
         Quiz newQuiz = this.quizService.createQuiz(data);
@@ -59,6 +71,7 @@ public class QuizController {
 //     "userId": 1,
 //     "score": 10,
 //     "difficulty": "EASY",
+//     "has_won": false,
 //     "questions": [
 //         {
 //             "title": "What was William Frederick Cody better known as?",
