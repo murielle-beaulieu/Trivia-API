@@ -30,6 +30,9 @@ const counterSlice = createSlice({
     decrement: state => {
       state.value -= 1;
     },
+    reset: state => {
+      state.value = 0;
+    },
     // here we want to give it a more finetuned behaviour, passing on a parameter
     // the payload is the information that we're giving to our state
     incrementByAmount: (state, action: PayloadAction<number>) => {
@@ -48,7 +51,7 @@ const counterSlice = createSlice({
 });
 
 // For regular actions, define the reducers first - then action
-// For asyn actions, define action first, then reducer
+// For async actions, define action first, then reducer
 
 // Redux takes care of naming the actions above (increment, decrement, etc), 
 // but here we must define it ourselves: "counter/incrementAsync"
@@ -60,7 +63,7 @@ export const incrementAsync = createAsyncThunk("counter/incrementAsync",
     }
 )
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const { increment, decrement, incrementByAmount, reset } = counterSlice.actions;
 
 // now you can export this to your main store
 export default counterSlice.reducer;

@@ -5,7 +5,7 @@ function GamePage () {
     return (
         <>
       <Trivia/>
-      <Counter/>
+      {/* <Counter/> */}
     </>
     )
 }
