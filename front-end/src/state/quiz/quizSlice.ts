@@ -8,13 +8,17 @@ interface Quiz {
     questions: QuizQuestion[]
 }
 
-interface QuizQuestion {
+export interface QuizQuestion {
     quiz_id: number
     quizzes: Quiz[]
     title: string
     given_answer: string
     is_correct: boolean
 }
+
+// interface QuizResponse {
+//     quizzes: Quiz[]
+// }
 
 export const quizzesApiSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8080/quizzes" }),
@@ -24,7 +28,14 @@ export const quizzesApiSlice = createApi({
         getQuizzes: build.query<Quiz[], void>({
         query: () => "",    
         }),
+        addQuiz: build.mutation<Quiz, Quiz>({
+            query: newQuiz => ({
+              url: "http://localhost:8080/quizzes",
+              method: 'POST',
+              body: newQuiz
+            })
+          })
     }),
 })
 
-export const { useGetQuizzesQuery } = quizzesApiSlice;
+export const { useGetQuizzesQuery, useAddQuizMutation } = quizzesApiSlice;

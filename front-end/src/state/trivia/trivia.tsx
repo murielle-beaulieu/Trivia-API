@@ -1,11 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useGetCategoriesQuery, useGetQuestionsQuery } from "./triviaSlice";
+import { useGetQuestionsQuery } from "./triviaSlice";
 import { AppDispatch, RootState } from "../store";
 import styles from "./trivia.module.scss";
 import { increment, reset } from "../counter/counterSlice";
 import { useState } from "react";
-import { useGetQuizzesQuery } from "../quiz/quizSlice";
+import { useGetQuizzesQuery, useAddQuizMutation } from "../quiz/quizSlice";
 import { endGame, playAgain } from "../game/gameSlice";
+import { addQuestion, clearQuestions } from "../result/resultSlice";
+import "he";
+import he from "he";
 
 export const Trivia = () => {
   // trivia
@@ -17,6 +20,8 @@ export const Trivia = () => {
     isSuccess,
     refetch,
   } = useGetQuestionsQuery(category);
+
+  const [addQuizMutation] = useAddQuizMutation();
 
 //   interface Quiz {
 //     userId: number
@@ -39,7 +44,7 @@ export const Trivia = () => {
   // console.log(categoriesData?.trivia_categories[0].name);
 
   /* quizzes */
-  // const { data: quizData } = useGetQuizzesQuery();
+  const { data: quizData } = useGetQuizzesQuery();
   // console.log(quizData);
 
   // counter 
@@ -48,6 +53,10 @@ export const Trivia = () => {
 
   // game
   const game = useSelector((state: RootState) => state.game.value);
+
+  // result
+  const result = useSelector((state: RootState) => state.result.questions);
+  console.log(result);
 
   const currentQuestion = triviaData?.results[count];
   const correct_answer = currentQuestion?.correct_answer || "";
@@ -60,10 +69,13 @@ export const Trivia = () => {
   function checkAnswer(answer: string) {
     // we want to keep track of the quiz question and answer provided - good or bad
     if (answer == correct_answer) {
-      dispatch(increment());
       console.log("right answer");
+      dispatch(addQuestion({title: currentQuestion?.question, given_answer: correct_answer, is_correct: true}));
+      console.log(result);
+      dispatch(increment());
     } else {
       console.log("wrong answer");
+      dispatch(addQuestion({title: currentQuestion?.question, given_answer: correct_answer, is_correct: false}));
       dispatch(endGame());
       console.log("game state: " + game);
     }
@@ -72,12 +84,29 @@ export const Trivia = () => {
   function restart() {
     // here we need to do a few things
     // - we want to submit the quiz we just played to the db
+    // - we want to reset the quiz data
+    dispatch(clearQuestions());
     // - we want to reset the counter
     dispatch(reset());
     // - we want to refetch for a new trivia quiz
     refetch();
     // - we want to change the game state to true
     dispatch(playAgain());
+  }
+
+  async function submitQuiz() {
+    try {
+      await addQuizMutation({
+        userId: 1,
+        score: 0,
+        has_won: false,
+        difficulty: "EASY",
+        questions: result
+      }).unwrap()
+      console.log("fucking fuck yea")
+    } catch (e) {
+      console.log(e + " error posting the quiz");
+    }
   }
 
   if (isError) {
@@ -102,7 +131,7 @@ export const Trivia = () => {
         <h1>Trivia</h1>
         <div className={styles.question_card}>
           <div>
-            <h3>{currentQuestion?.question}</h3>
+            <h3>{currentQuestion && he.decode(currentQuestion.question)}</h3>
           </div>
           <div>
             {all_answers.map((answer) => (
@@ -110,6 +139,7 @@ export const Trivia = () => {
             ))}
           </div>
         </div>
+        <button onClick={() => submitQuiz()}>SUBMIT BABBYYYY</button>
       </>
     );
   }

@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./counter/counterSlice";
 import gameReducer from "./game/gameSlice";
+import resultReducer from "./result/resultSlice";
 import { triviaApiSlice, triviaCategorySlice } from "./trivia/triviaSlice";
 import { quizzesApiSlice } from "./quiz/quizSlice";
 
@@ -16,6 +17,9 @@ export const store = configureStore({
         // game state
         game: gameReducer,
 
+        // result
+        result: resultReducer,
+
         // trivia api
         [triviaApiSlice.reducerPath]: triviaApiSlice.reducer,
 
@@ -24,6 +28,7 @@ export const store = configureStore({
 
         // quizzes
         [quizzesApiSlice.reducerPath]: quizzesApiSlice.reducer,
+        
     },
     middleware: (getDefaultMiddleware) =>
         // getDefaultMiddleware().concat(triviaApiSlice.middleware),

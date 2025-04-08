@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit/react";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit/react";
+import { QuizQuestion } from "../quiz/quizSlice";
 
 interface ResultState {
     userId: number
@@ -8,13 +9,13 @@ interface ResultState {
     questions: QuizQuestion[]
 }
 
-interface QuizQuestion {
-    quiz_id: number
-    quizzes: Quiz[]
-    title: string
-    given_answer: string
-    is_correct: boolean
-}
+// interface QuizQuestion {
+//     // quiz_id: number
+//     // quizzes: Quiz[]
+//     title: string | undefined
+//     given_answer: string
+//     is_correct: boolean
+// }
 
 const initialState: ResultState = {
   userId: 1,
@@ -31,14 +32,16 @@ const resultSlice = createSlice({
   name: "result",
   initialState,
   reducers: {
-    createQuestion: (state, action) => {
+    addQuestion: (state, action: PayloadAction<QuizQuestion>) => {
       // where we initialize the questions
-      question.userId = payload.userId;
-      state.questions.push()
+      state.questions.push(action.payload);
+    },
+    clearQuestions: (state) => {
+      state.questions = []
     }
   }
 });
 
-export const { createQuestion} = resultSlice.actions;
+export const { addQuestion, clearQuestions } = resultSlice.actions;
 
 export default resultSlice.reducer;
