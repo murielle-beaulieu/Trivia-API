@@ -1,6 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./counter/counterSlice";
+import gameReducer from "./game/gameSlice";
+import resultReducer from "./result/resultSlice";
 import { triviaApiSlice, triviaCategorySlice } from "./trivia/triviaSlice";
+import { quizzesApiSlice } from "./quiz/quizSlice";
 
 // create the store
 export const store = configureStore({
@@ -8,18 +11,28 @@ export const store = configureStore({
         // you can have as many slice as you want
         // each slice is responsible for it's own state
 
-        //counter 
+        // counter 
         counter: counterReducer,
+
+        // game state
+        game: gameReducer,
+
+        // result
+        result: resultReducer,
 
         // trivia api
         [triviaApiSlice.reducerPath]: triviaApiSlice.reducer,
 
         // categories
         [triviaCategorySlice.reducerPath]: triviaCategorySlice.reducer,
+
+        // quizzes
+        [quizzesApiSlice.reducerPath]: quizzesApiSlice.reducer,
+        
     },
     middleware: (getDefaultMiddleware) =>
         // getDefaultMiddleware().concat(triviaApiSlice.middleware),
-         getDefaultMiddleware().concat(triviaCategorySlice.middleware, triviaApiSlice.middleware),
+         getDefaultMiddleware().concat(triviaCategorySlice.middleware, triviaApiSlice.middleware, quizzesApiSlice.middleware),
 
 })
 

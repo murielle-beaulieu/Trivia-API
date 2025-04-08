@@ -10,9 +10,18 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // Apply CORS to all endpoints
-                .allowedOrigins("https://trusted.com") // Allow specific origin
+                .allowedOrigins("http://localhost:5173/", "http://127.0.0.1:5173/" ) // Allow specific origin
                 .allowedMethods("GET", "POST", "PUT", "DELETE") // Allow specific HTTP methods
                 .allowedHeaders("Content-Type", "Authorization") // Allow specific headers
                 .allowCredentials(true); // Allow credentials (e.g., cookies)
     }
+//     @Configuration
+// public class WebConfig implements WebMvcConfigurer {
+//     @SuppressWarnings("null")
+//     public void addCorsMappings(CorsRegistry registry) {
+//         String[] allowedOrigins = { "http://localhost:5173/", "http://127.0.0.1:5173/" };
+//         registry.addMapping("/**").allowedOrigins(allowedOrigins).allowedMethods("*").allowedHeaders("*");
+//     }
+// }
+
 }
