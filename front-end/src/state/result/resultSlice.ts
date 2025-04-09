@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit/react";
 import { QuizQuestion } from "../quiz/quizSlice";
+import { Difficulty } from "../trivia/triviaSlice";
 
 interface ResultState {
     userId: number
     score: number | null
     has_won: boolean
-    difficulty: string
+    difficulty: Difficulty
     questions: QuizQuestion[]
 }
 
@@ -17,11 +18,12 @@ interface ResultState {
 //     is_correct: boolean
 // }
 
+
 const initialState: ResultState = {
   userId: 1,
   score: null,
   has_won: false,
-  difficulty: "EASY",
+  difficulty: Difficulty.EASY,
   questions: []
 };
 

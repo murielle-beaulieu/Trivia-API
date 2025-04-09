@@ -1,7 +1,10 @@
 {
   "dependencies": {
+    "@hookform/resolvers": "^5.0.1",
     "@reduxjs/toolkit": "^2.6.1",
     "he": "^1.2.0",
-    "react-redux": "^9.2.0"
+    "react-hook-form": "^7.55.0",
+    "react-redux": "^9.2.0",
+    "zod": "^3.24.2"
   }
 }

@@ -23,28 +23,8 @@ export const Trivia = () => {
 
   const [addQuizMutation] = useAddQuizMutation();
 
-//   interface Quiz {
-//     userId: number
-//     score: number
-//     has_won: boolean
-//     difficulty: string
-//     questions: QuizQuestion[]
-// }
-
-// interface QuizQuestion {
-//     quiz_id: number
-//     quizzes: Quiz[]
-//     title: string
-//     given_answer: string
-//     is_correct: boolean
-// }
-
-  /* categories */
-  // const { data: categoriesData } = useGetCategoriesQuery();
-  // console.log(categoriesData?.trivia_categories[0].name);
-
   /* quizzes */
-  const { data: quizData } = useGetQuizzesQuery();
+  // const { data: quizData } = useGetQuizzesQuery();
   // console.log(quizData);
 
   // counter 
@@ -133,7 +113,7 @@ export const Trivia = () => {
           <div>
             <h3>{currentQuestion && he.decode(currentQuestion.question)}</h3>
           </div>
-          <div>
+          <div className={styles.question_answers}>
             {all_answers.map((answer) => (
               <button key={answer} onClick={() => checkAnswer(answer)}>{answer}</button>
             ))}

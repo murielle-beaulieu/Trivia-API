@@ -44,6 +44,12 @@ interface TriviaApiResponse {
 //             "name": "General Knowledge"
 //         },
 
+export enum Difficulty {
+    "EASY" = "EASY",
+    "MEDIUM" = "MEDIUM",
+    "HARD" = "HARD",
+  }
+
 interface TriviaCategory {
     id: number
     name: string
@@ -61,7 +67,6 @@ export const triviaCategorySlice = createApi({
     endpoints: build => ({
         getCategories: build.query<TriviaCategoriesResponse, void>({
         query: () => "",
-        
         }),
     }),
 })
