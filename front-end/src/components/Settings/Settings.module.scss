@@ -1,0 +1,14 @@
+.start_game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 14em;
+    button {
+        background-color: rgb(255, 114, 137);
+        color: white;
+        margin: 1em;
+        &:hover {
+            border: 4px solid rgb(250, 68, 99);;
+        }
+    }
+}

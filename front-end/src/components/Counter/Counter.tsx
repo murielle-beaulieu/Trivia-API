@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../state/store";
-import { decrement, increment} from "../state/counter/counterSlice";
+import { AppDispatch, RootState } from "../../state/store";
+import { decrement, increment} from "../../state/counter/counterSlice";
 
 
 const Counter = () => {
