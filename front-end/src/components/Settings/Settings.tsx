@@ -1,11 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  Difficulty,
   useGetCategoriesQuery,
 } from "../../state/trivia/triviaSlice";
 import styles from "./Settings.module.scss";
 import { useForm } from "react-hook-form";
 import { GameSettingsData, schema } from "./settings-schema";
+import { Difficulty } from "../../enums/difficulty";
 
 interface GameSettingsProps {
   onSubmit: (data: GameSettingsData) => unknown;
@@ -22,7 +22,9 @@ function Settings( {onSubmit}: GameSettingsProps ) {
 
   return (
     <>
+    <header className={styles.banner}>
       <h1>Start a new game</h1>
+    </header>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <h2>Select your difficulty</h2>

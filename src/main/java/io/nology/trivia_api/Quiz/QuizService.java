@@ -3,7 +3,6 @@ package io.nology.trivia_api.Quiz;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -59,14 +58,13 @@ class QuizService {
         newQuiz.setUser(user);
 
         newQuiz.setDifficulty(data.getDifficulty());
-
         newQuiz.setHas_won(data.getHas_won());
-
         newQuiz.setScore(calculateScore(data));
 
         // initializing a list for the questions
         List<QuizQuestion> list = new ArrayList<>();
         newQuiz.setQuiz_questions(list);
+
         // saving the quiz first, that way we have an Id for the question
         Quiz saved = this.repo.save(newQuiz);
         
@@ -91,17 +89,22 @@ class QuizService {
     
     private Long calculateScore(QuizDTO data){      
           
+        Long score = (long) 0;
+
         if(data.getHas_won()) {
-            Long score = (long) 10;
+            score = (long) 10;
             return score;
         }
-        // Boolean lastQuestion = data.getQuestions().getLast().getIs_correct();
+
         Long numOfQuestions = (long) data.getQuestions().size();
 
-        // Long score = (long) (numOfQuestions == 10 && lastQuestion ? 10 : numOfQuestions -1);
-        Long score = (long) (numOfQuestions -1);
+        if (numOfQuestions <= 1) {
+            return score;
+        } else {
+            score = (long) (numOfQuestions -1);
+            return score;
+        }
 
-        return score;
     }
 
 }

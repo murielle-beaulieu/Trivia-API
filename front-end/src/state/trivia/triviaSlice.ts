@@ -14,7 +14,6 @@
 
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
-
 interface TriviaQuestion {
     type: string
     difficulty: string
@@ -44,11 +43,6 @@ interface TriviaApiResponse {
 //             "name": "General Knowledge"
 //         },
 
-export enum Difficulty {
-    "easy" = "easy",
-    "medium" = "medium",
-    "hard" = "hard",
-  }
 
 interface TriviaCategory {
     id: number
@@ -77,6 +71,7 @@ export const triviaCategorySlice = createApi({
         }),
     }),
 })
+
 
 export const triviaApiSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: "https://opentdb.com/api.php" }),

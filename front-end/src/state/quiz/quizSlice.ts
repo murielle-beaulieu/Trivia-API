@@ -9,16 +9,12 @@ interface Quiz {
 }
 
 export interface QuizQuestion {
-    quiz_id: number
-    quizzes: Quiz[]
-    title: string
+    // quiz_id: number
+    // quizzes: Quiz[]
+    title: string | undefined
     given_answer: string
     is_correct: boolean
 }
-
-// interface QuizResponse {
-//     quizzes: Quiz[]
-// }
 
 export const quizzesApiSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8080/quizzes" }),

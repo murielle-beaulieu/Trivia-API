@@ -3,13 +3,14 @@ import { useGetQuestionsQuery } from "./triviaSlice";
 import { AppDispatch, RootState } from "../store";
 import styles from "./trivia.module.scss";
 import { increment, reset } from "../counter/counterSlice";
-import { useState } from "react";
-import { useGetQuizzesQuery, useAddQuizMutation } from "../quiz/quizSlice";
+// import { useState } from "react";
+// import { useGetQuizzesQuery, useAddQuizMutation } from "../quiz/quizSlice";
 import { endGame, playAgain } from "../game/gameSlice";
 import { addQuestion, clearQuestions } from "../result/resultSlice";
 import "he";
 import he from "he";
 import { useNavigate } from "react-router-dom";
+import { useAddQuizMutation } from "../quiz/quizSlice";
 
 export const Trivia = () => {
 
@@ -25,7 +26,6 @@ export const Trivia = () => {
     isError,
     isLoading,
     isSuccess,
-    refetch,
   } = useGetQuestionsQuery({category: set.category,difficulty: set.difficulty});
 
   const [addQuizMutation] = useAddQuizMutation();
@@ -61,43 +61,35 @@ export const Trivia = () => {
       console.log(result);
       dispatch(increment());
     } else {
-      console.log("wrong answer");
-      dispatch(addQuestion({title: currentQuestion?.question, given_answer: correct_answer, is_correct: false}));
+      console.log("wrong answer: " + answer);
+      dispatch(addQuestion({title: currentQuestion?.question, given_answer: answer, is_correct: false}));
       dispatch(endGame());
       console.log("game state: " + game);
     }
   }
 
   function restart() {
-    // here we need to do a few things
-
-    // - we want to submit the quiz we just played to the db
-    // submitQuiz();
-    // - we want to reset the quiz data
+    submitQuiz();
     dispatch(clearQuestions());
-    // - we want to reset the counter
     dispatch(reset());
-    // - we want to refetch for a new trivia quiz
-    refetch();
-    // - we want to change the game state to true
     dispatch(playAgain());
     navigate("/");
   }
 
-  // async function submitQuiz() {
-  //   try {
-  //     await addQuizMutation({
-  //       userId: 1,
-  //       score: 0,
-  //       has_won: false,
-  //       difficulty: "EASY",
-  //       questions: result
-  //     }).unwrap()
-  //     console.log("fucking fuck yea")
-  //   } catch (e) {
-  //     console.log(e + " error posting the quiz");
-  //   }
-  // }
+  async function submitQuiz() {
+    try {
+      await addQuizMutation({
+        userId: 1,
+        score: 0,
+        has_won: false,
+        difficulty: (set.difficulty).toUpperCase(),
+        questions: result
+      }).unwrap()
+      console.log("fucking fuck yea")
+    } catch (e) {
+      console.log(e + " error posting the quiz");
+    }
+  }
 
   if (isError) {
     return (
