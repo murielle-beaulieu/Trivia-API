@@ -10,8 +10,8 @@ function App() {
     <BrowserRouter>
       <Provider store={store}>
         <Routes>
-          <Route path="/" element={<GamePage />} />
-          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/" element={<SettingsPage />} />
+          <Route path="/play" element={<GamePage />} />
         </Routes>
       </Provider>
     </BrowserRouter>

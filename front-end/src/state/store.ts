@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./counter/counterSlice";
 import gameReducer from "./game/gameSlice";
 import resultReducer from "./result/resultSlice";
+import settingsReducer from "./settings/settingsSlice";
 import { triviaApiSlice, triviaCategorySlice } from "./trivia/triviaSlice";
 import { quizzesApiSlice } from "./quiz/quizSlice";
 
@@ -19,6 +20,9 @@ export const store = configureStore({
 
         // result
         result: resultReducer,
+
+        // settings
+        settings: settingsReducer,
 
         // trivia api
         [triviaApiSlice.reducerPath]: triviaApiSlice.reducer,

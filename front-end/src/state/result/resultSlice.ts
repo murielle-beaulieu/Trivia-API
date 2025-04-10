@@ -10,15 +10,6 @@ interface ResultState {
     questions: QuizQuestion[]
 }
 
-// interface QuizQuestion {
-//     // quiz_id: number
-//     // quizzes: Quiz[]
-//     title: string | undefined
-//     given_answer: string
-//     is_correct: boolean
-// }
-
-
 const initialState: ResultState = {
   userId: 1,
   score: null,
