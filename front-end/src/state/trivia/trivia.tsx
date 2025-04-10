@@ -9,17 +9,24 @@ import { endGame, playAgain } from "../game/gameSlice";
 import { addQuestion, clearQuestions } from "../result/resultSlice";
 import "he";
 import he from "he";
+import { useNavigate } from "react-router-dom";
 
 export const Trivia = () => {
+
+  const navigate = useNavigate();
+
   // trivia
-  const [category, setCategory] = useState(15);
+
+  const set = useSelector((state: RootState) => state.settings);
+  console.log(set.category + " " + set.difficulty);
+
   const {
     data: triviaData,
     isError,
     isLoading,
     isSuccess,
     refetch,
-  } = useGetQuestionsQuery(category);
+  } = useGetQuestionsQuery({category: set.category,difficulty: set.difficulty});
 
   const [addQuizMutation] = useAddQuizMutation();
 
@@ -63,7 +70,9 @@ export const Trivia = () => {
 
   function restart() {
     // here we need to do a few things
+
     // - we want to submit the quiz we just played to the db
+    // submitQuiz();
     // - we want to reset the quiz data
     dispatch(clearQuestions());
     // - we want to reset the counter
@@ -72,22 +81,23 @@ export const Trivia = () => {
     refetch();
     // - we want to change the game state to true
     dispatch(playAgain());
+    navigate("/");
   }
 
-  async function submitQuiz() {
-    try {
-      await addQuizMutation({
-        userId: 1,
-        score: 0,
-        has_won: false,
-        difficulty: "EASY",
-        questions: result
-      }).unwrap()
-      console.log("fucking fuck yea")
-    } catch (e) {
-      console.log(e + " error posting the quiz");
-    }
-  }
+  // async function submitQuiz() {
+  //   try {
+  //     await addQuizMutation({
+  //       userId: 1,
+  //       score: 0,
+  //       has_won: false,
+  //       difficulty: "EASY",
+  //       questions: result
+  //     }).unwrap()
+  //     console.log("fucking fuck yea")
+  //   } catch (e) {
+  //     console.log(e + " error posting the quiz");
+  //   }
+  // }
 
   if (isError) {
     return (
@@ -119,7 +129,6 @@ export const Trivia = () => {
             ))}
           </div>
         </div>
-        <button onClick={() => submitQuiz()}>SUBMIT BABBYYYY</button>
       </>
     );
   }

@@ -45,9 +45,9 @@ interface TriviaApiResponse {
 //         },
 
 export enum Difficulty {
-    "EASY" = "EASY",
-    "MEDIUM" = "MEDIUM",
-    "HARD" = "HARD",
+    "easy" = "easy",
+    "medium" = "medium",
+    "hard" = "hard",
   }
 
 interface TriviaCategory {
@@ -57,6 +57,13 @@ interface TriviaCategory {
 
 interface TriviaCategoriesResponse {
     trivia_categories: TriviaCategory[]
+}
+
+interface TriviaOptions {
+    category: string;
+    difficulty: string;
+    amount?: number;
+    type?: string;
 }
 
 
@@ -76,10 +83,15 @@ export const triviaApiSlice = createApi({
     reducerPath: "triviaApi",
     tagTypes: ["Questions"],
     endpoints: build => ({
-        getQuestions: build.query<TriviaApiResponse, number>({
-            // here I want to add the selected options of the game settings
-            query: (amount = 10, category = 15, difficulty = 'medium',type = 'multiple') => `?amount=${amount}&category=${category}&difficulty=${difficulty}&type=${type}`,
-            providesTags: (result, error, id) => [{type: "Questions", id}]
+        getQuestions: build.query<TriviaApiResponse, TriviaOptions>({
+            query: (options: TriviaOptions) => {
+                const {category = options.category, difficulty= options.difficulty, amount = 10, type= "multiple" } = options;
+                console.log(options.category, options.difficulty);
+                const queryString = `?amount=${amount}&category=${category}&difficulty=${difficulty}&type=${type}`;
+                console.log('Query URL:', queryString);
+                return queryString;
+            },
+            providesTags: (result, error, id) => [{type: "Questions", id: JSON.stringify(id)}]
         }),
     }),
 })

@@ -1,28 +1,28 @@
-import { useState } from "react";
 import Settings from "../components/Settings/Settings";
 import { GameSettingsData } from "../components/Settings/settings-schema";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../state/store";
+import { defineSettings } from "../state/settings/settingsSlice";
+import { useNavigate } from "react-router-dom";
 
 function SettingsPage() {
 
-    const [settings, setSettings] = useState({category: "9", difficulty: "MEDIUM"})
-    console.log("start settings: " + settings.category, settings.difficulty)
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
+  function handleSettings(data: GameSettingsData) {
+    // here we want to use the data received and use our action to set the new state
+    console.log("heyyo" + data.category + " " + data.difficulty);
+    console.log("yayayayaya " + data.category + " " + data.difficulty);
+    dispatch(defineSettings(data));
+    navigate("/play");
+}
 
-    function handleSettings(data: GameSettingsData) {
-       setSettings({category: data.category, difficulty: data.difficulty});
-       console.log(data.category, data.difficulty);
-       console.log("current settings: " + settings.category, settings.difficulty);
-    }
-    
-    return (
-        <Settings onSubmit={handleSettings}/>
-    )
-    
-
-    // interface GameSettingsData {
-    //   categories: string;
-    //   difficulty: Difficulty;
-    // }
+  return (
+    <>
+      <Settings onSubmit={handleSettings} />
+    </>
+  );
 }
 
 export default SettingsPage;
