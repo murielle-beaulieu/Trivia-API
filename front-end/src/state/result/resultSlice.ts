@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit/react";
 import { QuizQuestion } from "../quiz/quizSlice";
-import { Difficulty } from "../trivia/triviaSlice";
+import { Difficulty } from "../../enums/difficulty";
 
 interface ResultState {
     userId: number
@@ -14,7 +14,7 @@ const initialState: ResultState = {
   userId: 1,
   score: null,
   has_won: false,
-  difficulty: Difficulty.EASY,
+  difficulty: Difficulty.easy,
   questions: []
 };
 
