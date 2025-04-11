@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 interface Quiz {
     userId: number
+    id?: number
     score: number
     has_won: boolean
     difficulty: string

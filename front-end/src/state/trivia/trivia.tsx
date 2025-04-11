@@ -83,7 +83,7 @@ export const Trivia = () => {
         score: 0,
         has_won: false,
         difficulty: (set.difficulty).toUpperCase(),
-        questions: result
+        questions: result,
       }).unwrap()
       console.log("fucking fuck yea")
     } catch (e) {

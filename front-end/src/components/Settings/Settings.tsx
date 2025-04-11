@@ -13,6 +13,7 @@ interface GameSettingsProps {
 
 function Settings( {onSubmit}: GameSettingsProps ) {
   /* categories */
+  // I'm not sure I want to fetch this data all the time?
   const { data: categoriesData } = useGetCategoriesQuery();
   console.log(categoriesData?.trivia_categories[0].name);
 
