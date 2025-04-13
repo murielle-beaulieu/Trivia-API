@@ -1,6 +1,18 @@
-import { QuizList } from "../components/QuizList/QuizList";
+// import { useSelector } from "react-redux";
+// import { QuizList } from "../components/QuizList/QuizList";
+// import { selectCurrentUser } from "../state/auth/authSlice";
 
-export function UserPage() {
+import { useSelector } from 'react-redux';
+import { selectCurrentToken, selectCurrentUser } from "../state/auth/authSlice";
+
+function UserPage() {
+    const currentUser = useSelector(selectCurrentUser);
+    const currentToken = useSelector(selectCurrentToken);
+    console.log("Current user:", currentUser); // Log the entire user object
+    console.log("Email:", currentUser?.email);
+    
+
+    const welcome = currentUser? `Welcome ${currentUser}`:"Welcome";
 
   // we want to display
   //   - Quiz List with links to each quiz 
@@ -15,8 +27,12 @@ export function UserPage() {
         <header><h2>User Page</h2></header>
         <section>
             <h3>Quizzes: </h3>
-            <QuizList/>
+            {welcome}
+            {currentToken}
+            {/* <QuizList/> */}
         </section>
         </>
     )
 }
+
+export default UserPage;

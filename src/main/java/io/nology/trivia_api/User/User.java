@@ -77,7 +77,7 @@ public class User implements UserDetails {
 	}
     
     // one employee can have many quizzes
-    @OneToMany()
+    @OneToMany(mappedBy = "user")
     private List<Quiz> quizzes;
 
     @Override

@@ -1,14 +1,25 @@
 package io.nology.trivia_api.User;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+
+import io.nology.trivia_api.Quiz.Quiz;
+import io.nology.trivia_api.Quiz.QuizRepository;
 
 @Service
 public class UserService {
 
     private UserRepository repo;
 
+    private QuizRepository quizRepo;
+
+    public UserService(UserRepository repo, QuizRepository quizRepo) {
+      this.repo = repo;
+      this.quizRepo = quizRepo;
+    }
+    
     public User getById(Long userId) {
        Optional<User> result = this.repo.findById(userId);
        if (result.isEmpty()) {
@@ -16,6 +27,30 @@ public class UserService {
       }
       User found = result.get();
       return found;
+    }
+
+    public User getByEmail(String email) {
+      Optional<User> result = this.repo.findByEmail(email);
+      if (result.isEmpty()) {
+        return null;
+      }
+      User found = result.get();
+      return found;
+    }
+
+    public List<User> getAllUsers() {
+      return this.repo.findAll();
+    }
+
+    public List<Quiz> getUserQuizzes(Long id) {
+      Optional<User> result = this.repo.findById(id);
+      if (result.isEmpty()) {
+        return null;
+      }
+      User found = result.get();
+
+     List<Quiz> userQuizzes = found.getQuizzes();
+     return userQuizzes;
     }
     
 }

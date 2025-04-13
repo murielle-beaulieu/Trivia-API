@@ -3,21 +3,17 @@ import { useGetQuestionsQuery } from "./triviaSlice";
 import { AppDispatch, RootState } from "../store";
 import styles from "./trivia.module.scss";
 import { increment, reset } from "../counter/counterSlice";
-// import { useState } from "react";
-// import { useGetQuizzesQuery, useAddQuizMutation } from "../quiz/quizSlice";
 import { endGame, playAgain } from "../game/gameSlice";
 import { addQuestion, clearQuestions } from "../result/resultSlice";
-import "he";
-import he from "he";
 import { useNavigate } from "react-router-dom";
 import { useAddQuizMutation } from "../quiz/quizSlice";
+import he from "he";
 
 export const Trivia = () => {
 
   const navigate = useNavigate();
 
   // trivia
-
   const set = useSelector((state: RootState) => state.settings);
   console.log(set.category + " " + set.difficulty);
 
@@ -30,13 +26,12 @@ export const Trivia = () => {
 
   const [addQuizMutation] = useAddQuizMutation();
 
-  /* quizzes */
-  // const { data: quizData } = useGetQuizzesQuery();
-  // console.log(quizData);
-
   // counter 
   const count = useSelector((state: RootState) => state.counter.value);
   const dispatch = useDispatch<AppDispatch>();
+
+  // question count
+  const countQuestion = count + 1;
 
   // game
   const game = useSelector((state: RootState) => state.game.value);
@@ -49,6 +44,7 @@ export const Trivia = () => {
   const correct_answer = currentQuestion?.correct_answer || "";
   const incorrect_answers = currentQuestion?.incorrect_answers || [];
   const all_answers = [...incorrect_answers];
+  const score = all_answers.length;
 
   const randomIndex = Math.floor(4 * Math.random());
   all_answers.splice(randomIndex, 0, correct_answer);
@@ -110,7 +106,7 @@ export const Trivia = () => {
   if (isSuccess && game) {
     return (
       <>
-        <h1>Trivia</h1>
+        <h2>Question # {countQuestion}</h2>
         <div className={styles.question_card}>
           <div>
             <h3>{currentQuestion && he.decode(currentQuestion.question)}</h3>
@@ -128,8 +124,8 @@ export const Trivia = () => {
   if (!game) {
     return (
       <>
-        <h2>Nice try! Your score is ...</h2>
-        <button onClick={() => restart()}>Play again?</button>
+        <h2>Nice try! Your score is {score - 1}</h2>
+        <button className={styles.play} onClick={() => restart()}>Play again?</button>
       </>
     );
   }
