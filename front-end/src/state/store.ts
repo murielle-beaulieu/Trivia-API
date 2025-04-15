@@ -1,4 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { apiSlice } from "./api/apiSlice";
+import authReducer from "./auth/authSlice";
 import counterReducer from "./counter/counterSlice";
 import gameReducer from "./game/gameSlice";
 import resultReducer from "./result/resultSlice";
@@ -12,17 +14,23 @@ export const store = configureStore({
         // you can have as many slice as you want
         // each slice is responsible for it's own state
 
+        // auth
+        auth: authReducer,
+
         // counter 
         counter: counterReducer,
 
         // game state
         game: gameReducer,
 
-        // result
+        // result - the record of the quiz played
         result: resultReducer,
 
         // settings
         settings: settingsReducer,
+
+        // auth api
+        [apiSlice.reducerPath]: apiSlice.reducer,
 
         // trivia api
         [triviaApiSlice.reducerPath]: triviaApiSlice.reducer,
@@ -36,7 +44,7 @@ export const store = configureStore({
     },
     middleware: (getDefaultMiddleware) =>
         // getDefaultMiddleware().concat(triviaApiSlice.middleware),
-         getDefaultMiddleware().concat(triviaCategorySlice.middleware, triviaApiSlice.middleware, quizzesApiSlice.middleware),
+         getDefaultMiddleware().concat( apiSlice.middleware, triviaCategorySlice.middleware, triviaApiSlice.middleware, quizzesApiSlice.middleware),
 
 })
 

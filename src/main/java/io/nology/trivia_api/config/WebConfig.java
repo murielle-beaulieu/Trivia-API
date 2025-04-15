@@ -12,7 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**") // Apply CORS to all endpoints
                 .allowedOrigins("http://localhost:5173/", "http://127.0.0.1:5173/" ) // Allow specific origin
                 .allowedMethods("GET", "POST", "PUT", "DELETE") // Allow specific HTTP methods
-                .allowedHeaders("Content-Type", "Authorization") // Allow specific headers
+                .allowedHeaders("*") // Allow specific headers
                 .allowCredentials(true); // Allow credentials (e.g., cookies)
     }
 //     @Configuration
@@ -23,5 +23,10 @@ public class WebConfig implements WebMvcConfigurer {
 //         registry.addMapping("/**").allowedOrigins(allowedOrigins).allowedMethods("*").allowedHeaders("*");
 //     }
 // }
+
+
+// removed due to an error
+// .allowedHeaders("Content-Type", "Authorization") // Allow specific headers
+
 
 }

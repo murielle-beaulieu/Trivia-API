@@ -1,17 +1,3 @@
-// "results": [
-//     {
-//         "type": "multiple",
-//         "difficulty": "medium",
-//         "category": "Sports",
-//         "question": "Which car manufacturer won the 2017 24 Hours of Le Mans?",
-//         "correct_answer": "Porsche",
-//         "incorrect_answers": [
-//             "Toyota",
-//             "Audi",
-//             "Chevrolet"
-//         ]
-//     },
-
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 interface TriviaQuestion {
@@ -26,23 +12,6 @@ interface TriviaQuestion {
 interface TriviaApiResponse {
     results: TriviaQuestion[]
 }
-
-// Category Query - from 9 through 32
-// https://opentdb.com/api_category.php
-
-// Base query
-// https://opentdb.com/api.php?amount=10
-
-// Query with additional parameters
-// https://opentdb.com/api.php?amount=19&category=13&difficulty=hard&type=multiple
-
-// {
-//     "trivia_categories": [
-//         {
-//             "id": 9,
-//             "name": "General Knowledge"
-//         },
-
 
 interface TriviaCategory {
     id: number

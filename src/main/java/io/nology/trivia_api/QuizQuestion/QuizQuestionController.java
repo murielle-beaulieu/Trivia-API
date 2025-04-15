@@ -42,5 +42,7 @@ public class QuizQuestionController {
         QuizQuestion newQuizQuestion = this.quizQuestionService.createQuizQuestion(data);
         return new ResponseEntity<>(newQuizQuestion, HttpStatus.CREATED);
     }
+
+    
     
 }

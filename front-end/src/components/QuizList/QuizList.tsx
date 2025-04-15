@@ -1,16 +1,25 @@
-import { useGetQuizzesQuery } from "../../state/quiz/quizSlice";
+import { Link } from "react-router-dom";
+import styles from "./QuizList.module.scss";
+import { useGetCurrentUserQuery } from "../../state/auth/authApiSlice";
 
 export function QuizList() {
 
-    // we want this information to be particular to the player 
-    // if no one is logged in, it should not be available
+  const { data: currentUser, isLoading, isError } = useGetCurrentUserQuery({});
+  
+  const quizzes = currentUser.quizzes;
+  console.log(quizzes);
 
-      const { data: allQuizData } = useGetQuizzesQuery();
-      console.log(allQuizData);
-      
-    return (
-        <section>
-            {allQuizData?.map((quiz) => <li>Quiz #:{quiz.id} on difficulty: {quiz.difficulty}</li> )}
-        </section>
-    )
+  return (
+    <section className={styles.list}>
+      {quizzes?.map((quiz) => (
+        <div>
+          <Link to={`/quiz/${quiz.id}`}>
+            <h3>
+              Quiz #:{quiz.id} on difficulty: {quiz.difficulty}
+            </h3>
+          </Link>
+        </div>
+      ))}
+    </section>
+  );
 }
