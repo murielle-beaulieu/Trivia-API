@@ -6,14 +6,25 @@
   width: 35em;
   margin: auto;
   padding: 2em;
-  border: 1em solid black;
+  border: 0.25em solid black;
+}
+
+.question_header {
+  text-align: left;
+  border-bottom: 0.05em black solid;
+
+}
+
+.question_title {
+  padding-top: 3em;
 }
 
 .question_answers {
   display: flex;
   align-self: center;
   flex-direction: column;
-  padding: 4em;
+  width: 100%;
+  padding: 3em;
   gap: 2em;
 }
 

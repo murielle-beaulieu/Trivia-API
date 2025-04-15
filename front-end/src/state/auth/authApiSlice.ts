@@ -7,11 +7,18 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 url: '/auth/login',
                 method: 'POST',
                 body: { ...credentials }
-            })
+            }),
         }),
+        getCurrentUser: builder.query ({
+            query: () => ({
+                url: '/users/me',
+                method: 'GET',
+              }),
+        })
     })
 })
 
 export const {
-    useLoginMutation
+    useLoginMutation,
+    useGetCurrentUserQuery
 } = authApiSlice

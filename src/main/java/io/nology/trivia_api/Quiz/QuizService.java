@@ -82,8 +82,7 @@ class QuizService {
             // then adding that to the array, it's mostly for display
             list.add(newQuestion);
             questionRepo.save(newQuestion);
-        }
-        
+        }  
         return saved;
     }
     
@@ -101,7 +100,7 @@ class QuizService {
         if (numOfQuestions <= 1) {
             return score;
         } else {
-            score = (long) (numOfQuestions -1);
+            score = (long) (numOfQuestions - 1);
             return score;
         }
 

@@ -6,7 +6,7 @@ import { RegisterData } from "../components/RegisterForm/register-schema";
 
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../state/auth/authSlice";
-import { useLoginMutation } from "../state/auth/authApiSlice";
+import { useGetCurrentUserQuery, useLoginMutation } from "../state/auth/authApiSlice";
 import { useNavigate } from "react-router-dom";
 
 function AuthPage() {
@@ -15,30 +15,35 @@ function AuthPage() {
   // option to login or to register
   const [authAction, setAuthAction] = useState("login");
 
-  const [ loginMutation, {isLoading}] = useLoginMutation();
+  const [ loginMutation ] = useLoginMutation();
   const dispatch = useDispatch();
-
+    
+ let token = null;
+  
+  
   async function handleLogin(data: LoginData) {
     console.log(data);
     try {
-         const userData = await loginMutation({
-            email: data.email,
-            password: data.password
-    }).unwrap()
-    // setCredentials should give back the JWT
-    dispatch(setCredentials({...userData }))
-    console.log("fucking fuck yea")
-    console.log(userData);
-    navigate("/user");
-  } catch (e) {
-    console.log(e + " dw, you'll get there!")
+      const userData = await loginMutation({
+        email: data.email,
+        password: data.password
+      }).unwrap()
+      token = userData.token;
+      console.log(token);
+      // setCredentials should give back the JWT
+      dispatch(setCredentials({token}));
+      console.log("fucking fuck yea")
+      // console.log(userData);
+      navigate("/user");
+    } catch (e) {
+      console.log(e + " dw, you'll get there!")
+    }
+    
   }
 
-  }
-
-  function handleRegister(data: RegisterData) {
-    console.log(data);
-  }
+  // function handleRegister(data: RegisterData) {
+  //   console.log(data);
+  // }
   
 
 return (

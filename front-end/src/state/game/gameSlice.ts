@@ -1,29 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit/react";
 
 interface GameState {
-  value: boolean;
+  playing: boolean;
+  won: boolean;
+  score: number;
 }
 
 const initialState: GameState = {
-  value: true,
+  playing: true,
+  won: false,
+  score: 0
 };
 
-// we use the game state to keep track of if it's still ongoing
-// on answering a question wrong, we can change this state and then submit the quiz result
 
 const gameSlice = createSlice({
   name: "game",
   initialState,
   reducers: {
     endGame: (state) => {
-      state.value = false;
+      state.playing = false;
     },
     playAgain: (state) => {
-      state.value = true;
+      state.playing = true;
+    },
+    winGame: (state) => {
+      state.won = true;
+    },
+    getPoint: (state) => {
+      state.score += 1;
     }
+
   }
 });
 
-export const { endGame, playAgain } = gameSlice.actions;
+export const { endGame, playAgain, winGame, getPoint } = gameSlice.actions;
 
 export default gameSlice.reducer;

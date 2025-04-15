@@ -1,18 +1,27 @@
-// import { useSelector } from "react-redux";
-// import { QuizList } from "../components/QuizList/QuizList";
-// import { selectCurrentUser } from "../state/auth/authSlice";
+import { Link } from "react-router-dom";
+import { QuizList } from "../components/QuizList/QuizList";
+import { useGetCurrentUserQuery } from "../state/auth/authApiSlice";
 
-import { useSelector } from 'react-redux';
-import { selectCurrentToken, selectCurrentUser } from "../state/auth/authSlice";
 
 function UserPage() {
-    const currentUser = useSelector(selectCurrentUser);
-    const currentToken = useSelector(selectCurrentToken);
-    console.log("Current user:", currentUser); // Log the entire user object
-    console.log("Email:", currentUser?.email);
     
+    const { data: currentUser, isLoading, isError } = useGetCurrentUserQuery({});
 
-    const welcome = currentUser? `Welcome ${currentUser}`:"Welcome";
+    console.log("Current user status:", { isLoading, isError, hasData: !!currentUser });
+    
+    if (isLoading) {
+      return <div>Loading user data...</div>;
+    }
+    
+    if (isError) {
+      return <div>Error loading user data</div>;
+    }
+    
+    if (!currentUser) {
+      return <div>No user data available</div>;
+    }
+    
+    console.log("Current user:", currentUser);
 
   // we want to display
   //   - Quiz List with links to each quiz 
@@ -25,11 +34,11 @@ function UserPage() {
     return (
         <>
         <header><h2>User Page</h2></header>
+        <h2>Hello {currentUser.firstName} (id #{currentUser.id})</h2>
         <section>
             <h3>Quizzes: </h3>
-            {welcome}
-            {currentToken}
-            {/* <QuizList/> */}
+            <Link to="/"><button>Start a new game</button></Link>
+            <QuizList/>
         </section>
         </>
     )

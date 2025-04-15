@@ -31,25 +31,22 @@
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store"; // Assuming you have a store file defining RootState
+// import { useGetCurrentUserQuery } from "./authApiSlice";
 
-// Define interfaces for our state and payload
 interface AuthState {
   user: User | null;
   token: string | null;
 }
 
 interface User {
-  // Add user properties based on your application needs
   id: string;
   firstName: string;
   lastName: string;
   email: string;
-  // Add other user properties here
 }
 
 interface CredentialsPayload {
-  user: User;
-  accessToken: string;
+  token: string | null;
 }
 
 const initialState: AuthState = {
@@ -62,9 +59,9 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action: PayloadAction<CredentialsPayload>) => {
-      const { user, accessToken } = action.payload;
-      state.user = user;
-      state.token = accessToken;
+      const { token } = action.payload;
+      state.token = token;
+      console.log('token ' + state.token)
     },
     logOut: (state) => {
       state.user = null;
@@ -72,6 +69,7 @@ const authSlice = createSlice({
     }
   },
 });
+
 
 export const { setCredentials, logOut } = authSlice.actions;
 

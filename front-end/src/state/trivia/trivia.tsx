@@ -3,14 +3,14 @@ import { useGetQuestionsQuery } from "./triviaSlice";
 import { AppDispatch, RootState } from "../store";
 import styles from "./trivia.module.scss";
 import { increment, reset } from "../counter/counterSlice";
-import { endGame, playAgain } from "../game/gameSlice";
+import { endGame, playAgain, winGame, getPoint } from "../game/gameSlice";
 import { addQuestion, clearQuestions } from "../result/resultSlice";
 import { useNavigate } from "react-router-dom";
 import { useAddQuizMutation } from "../quiz/quizSlice";
 import he from "he";
+import { useGetCurrentUserQuery } from "../auth/authApiSlice";
 
 export const Trivia = () => {
-
   const navigate = useNavigate();
 
   // trivia
@@ -22,29 +22,40 @@ export const Trivia = () => {
     isError,
     isLoading,
     isSuccess,
-  } = useGetQuestionsQuery({category: set.category,difficulty: set.difficulty});
+  } = useGetQuestionsQuery({
+    category: set.category,
+    difficulty: set.difficulty,
+  });
 
   const [addQuizMutation] = useAddQuizMutation();
 
-  // counter 
+  // counter
   const count = useSelector((state: RootState) => state.counter.value);
   const dispatch = useDispatch<AppDispatch>();
 
-  // question count
-  const countQuestion = count + 1;
-
   // game
-  const game = useSelector((state: RootState) => state.game.value);
+  const isPlaying = useSelector((state: RootState) => state.game.playing);
+  console.log(isPlaying + " is playing");
+
+  // win
+  const win = useSelector((state: RootState) => state.game.won);
+  console.log("winning? " + win);
 
   // result
   const result = useSelector((state: RootState) => state.result.questions);
   console.log(result);
 
+  // score
+  const gameScore = useSelector((state: RootState) => state.game.score);
+  console.log(gameScore);
+
+  //question count
+  const countQuestion = gameScore + 1;
+
   const currentQuestion = triviaData?.results[count];
   const correct_answer = currentQuestion?.correct_answer || "";
   const incorrect_answers = currentQuestion?.incorrect_answers || [];
   const all_answers = [...incorrect_answers];
-  const score = all_answers.length;
 
   const randomIndex = Math.floor(4 * Math.random());
   all_answers.splice(randomIndex, 0, correct_answer);
@@ -52,15 +63,28 @@ export const Trivia = () => {
   function checkAnswer(answer: string) {
     // we want to keep track of the quiz question and answer provided - good or bad
     if (answer == correct_answer) {
+      dispatch(getPoint());
       console.log("right answer");
-      dispatch(addQuestion({title: currentQuestion?.question, given_answer: correct_answer, is_correct: true}));
+      dispatch(
+        addQuestion({
+          title: currentQuestion?.question,
+          given_answer: correct_answer,
+          is_correct: true,
+        })
+      );
       console.log(result);
       dispatch(increment());
     } else {
       console.log("wrong answer: " + answer);
-      dispatch(addQuestion({title: currentQuestion?.question, given_answer: answer, is_correct: false}));
+      dispatch(
+        addQuestion({
+          title: currentQuestion?.question,
+          given_answer: answer,
+          is_correct: false,
+        })
+      );
       dispatch(endGame());
-      console.log("game state: " + game);
+      console.log("game state: " + isPlaying);
     }
   }
 
@@ -72,19 +96,34 @@ export const Trivia = () => {
     navigate("/");
   }
 
+  function endGameToUserPage() {
+    submitQuiz();
+    dispatch(clearQuestions());
+    dispatch(reset());
+    navigate("/user");
+  }
+
+    const { data: currentUser } = useGetCurrentUserQuery({});
+    const currId  = currentUser.id;
+
   async function submitQuiz() {
     try {
       await addQuizMutation({
-        userId: 1,
+        userId: currId,
         score: 0,
         has_won: false,
-        difficulty: (set.difficulty).toUpperCase(),
+        difficulty: set.difficulty.toUpperCase(),
         questions: result,
-      }).unwrap()
-      console.log("fucking fuck yea")
+      }).unwrap();
+      console.log("fucking fuck yea");
     } catch (e) {
       console.log(e + " error posting the quiz");
     }
+  }
+
+  if ((gameScore == 10)) {
+    console.log("YOU WON!");
+    dispatch(winGame());
   }
 
   if (isError) {
@@ -103,29 +142,52 @@ export const Trivia = () => {
     );
   }
 
-  if (isSuccess && game) {
+  if (win) {
     return (
       <>
-        <h2>Question # {countQuestion}</h2>
-        <div className={styles.question_card}>
-          <div>
-            <h3>{currentQuestion && he.decode(currentQuestion.question)}</h3>
-          </div>
-          <div className={styles.question_answers}>
-            {all_answers.map((answer) => (
-              <button key={answer} onClick={() => checkAnswer(answer)}>{answer}</button>
-            ))}
-          </div>
-        </div>
+        <h2>CONGRATS YOU WON!</h2>
+        <button className={styles.play} onClick={() => restart()}>
+          Play again?
+        </button>
+        <button className={styles.play} onClick={() => endGameToUserPage()}>
+          Go to profile
+        </button>
       </>
     );
   }
 
-  if (!game) {
+  if (isSuccess && isPlaying) {
     return (
       <>
-        <h2>Nice try! Your score is {score - 1}</h2>
-        <button className={styles.play} onClick={() => restart()}>Play again?</button>
+        <article className={styles.question_card}>
+          <section className={styles.question_header}>
+            <h2>Question # {countQuestion}</h2>
+          </section>
+          <section className={styles.question_title}>
+            <h3>{currentQuestion && he.decode(currentQuestion.question)}</h3>
+          </section>
+          <section className={styles.question_answers}>
+            {all_answers.map((answer) => (
+              <button key={answer} onClick={() => checkAnswer(answer)}>
+                {he.decode(answer)}
+              </button>
+            ))}
+          </section>
+        </article>
+      </>
+    );
+  }
+
+  if (!isPlaying) {
+    return (
+      <>
+        <h2>Nice try! Your finishing score is {gameScore}/10</h2>
+        <button className={styles.play} onClick={() => restart()}>
+          Play again?
+        </button>
+        <button className={styles.play} onClick={() => endGameToUserPage()}>
+          Go to profile
+        </button>
       </>
     );
   }

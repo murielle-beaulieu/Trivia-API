@@ -3,7 +3,7 @@ import { GameSettingsData } from "../components/Settings/settings-schema";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../state/store";
 import { defineSettings } from "../state/settings/settingsSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function SettingsPage() {
 
@@ -21,6 +21,7 @@ function SettingsPage() {
   return (
     <>
       <Settings onSubmit={handleSettings} />
+      <Link to="/user"><button>back to User page</button></Link>
     </>
   );
 }

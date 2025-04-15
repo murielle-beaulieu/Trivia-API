@@ -23,7 +23,7 @@ export const store = configureStore({
         // game state
         game: gameReducer,
 
-        // result
+        // result - the record of the quiz played
         result: resultReducer,
 
         // settings
