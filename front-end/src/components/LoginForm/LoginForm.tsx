@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginData, schema } from "./login-schema";
+import styles from "./LoginForm.module.scss";
 
 interface LoginProps {
   onSubmit: (data: LoginData) => unknown;
@@ -13,16 +14,17 @@ function LoginForm({onSubmit}: LoginProps) {
     
     return (
         <>
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
-                <label>Your email:</label>
+        <form className={styles.login_form} onSubmit={handleSubmit(onSubmit)}>
+            <header className={styles.login_header}><h2>Login</h2></header>
+            <div className={styles.field}>
+                <label>Email:</label>
                 <input type="text" {...register("email")}/>
             </div>
-            <div>
-                <label>Your password:</label>
+            <div className={styles.field}>
+                <label>Password:</label>
                 <input type="password" {...register("password")}/>
             </div>
-            <div>
+            <div className={styles.submit}>
                 <button className="submit">Login</button>
             </div>
         </form>

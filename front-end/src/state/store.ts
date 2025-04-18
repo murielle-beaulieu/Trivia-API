@@ -10,43 +10,45 @@ import { quizzesApiSlice } from "./quiz/quizSlice";
 
 // create the store
 export const store = configureStore({
-    reducer: {
-        // you can have as many slice as you want
-        // each slice is responsible for it's own state
+  reducer: {
+    // you can have as many slice as you want
+    // each slice is responsible for it's own state
 
-        // auth
-        auth: authReducer,
+    // auth
+    auth: authReducer,
 
-        // counter 
-        counter: counterReducer,
+    // counter
+    counter: counterReducer,
 
-        // game state
-        game: gameReducer,
+    // game state
+    game: gameReducer,
 
-        // result - the record of the quiz played
-        result: resultReducer,
+    // result - the record of the quiz played
+    result: resultReducer,
 
-        // settings
-        settings: settingsReducer,
+    // settings
+    settings: settingsReducer,
 
-        // auth api
-        [apiSlice.reducerPath]: apiSlice.reducer,
+    // auth api
+    [apiSlice.reducerPath]: apiSlice.reducer,
 
-        // trivia api
-        [triviaApiSlice.reducerPath]: triviaApiSlice.reducer,
+    // trivia api
+    [triviaApiSlice.reducerPath]: triviaApiSlice.reducer,
 
-        // categories
-        [triviaCategorySlice.reducerPath]: triviaCategorySlice.reducer,
+    // categories
+    [triviaCategorySlice.reducerPath]: triviaCategorySlice.reducer,
 
-        // quizzes
-        [quizzesApiSlice.reducerPath]: quizzesApiSlice.reducer,
-        
-    },
-    middleware: (getDefaultMiddleware) =>
-        // getDefaultMiddleware().concat(triviaApiSlice.middleware),
-         getDefaultMiddleware().concat( apiSlice.middleware, triviaCategorySlice.middleware, triviaApiSlice.middleware, quizzesApiSlice.middleware),
-
-})
+    // quizzes
+    [quizzesApiSlice.reducerPath]: quizzesApiSlice.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(
+      apiSlice.middleware,
+      triviaCategorySlice.middleware,
+      triviaApiSlice.middleware,
+      quizzesApiSlice.middleware
+    ),
+});
 
 // export your types
 export type RootState = ReturnType<typeof store.getState>;
@@ -59,4 +61,3 @@ export type AppDispatch = typeof store.dispatch;
 
 // React cannot talk directly to Redux, so we need to set up a provider
 // then connect our store and app state to react
-

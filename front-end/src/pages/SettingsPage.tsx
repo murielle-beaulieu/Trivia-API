@@ -11,9 +11,6 @@ function SettingsPage() {
   const navigate = useNavigate();
 
   function handleSettings(data: GameSettingsData) {
-    // here we want to use the data received and use our action to set the new state
-    console.log("heyyo" + data.category + " " + data.difficulty);
-    console.log("yayayayaya " + data.category + " " + data.difficulty);
     dispatch(defineSettings(data));
     navigate("/play");
 }

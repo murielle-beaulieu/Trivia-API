@@ -2,24 +2,17 @@ package io.nology.trivia_api.User;
 
 import java.util.List;
 import java.util.Optional;
-// import java.util.stream.Collector;
-// import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
-
 import io.nology.trivia_api.Quiz.Quiz;
-import io.nology.trivia_api.Quiz.QuizRepository;
 
 @Service
 public class UserService {
 
   private UserRepository repo;
 
-  private QuizRepository quizRepo;
-
-  public UserService(UserRepository repo, QuizRepository quizRepo) {
+  public UserService(UserRepository repo) {
     this.repo = repo;
-    this.quizRepo = quizRepo;
   }
 
   public User getById(Long userId) {
@@ -54,25 +47,5 @@ public class UserService {
     List<Quiz> userQuizzes = found.getQuizzes();
     return userQuizzes;
   }
-
-  // public List<User> rankUsers(Long id) {
-  //   List<User> allUsers = getAllUsers();
-  //   List<Quiz> allQuizzes = getUserQuizzes(id);
-
-  //   // we need to keep track of all the points
-
-  //   List<Quiz> won = allUsers.stream().flatMap((user) -> user.getQuizzes().stream()).filter((quiz) -> quiz.getHas_won() != false).collect(Collectors.toList());
-
-  //   List<Quiz> lost = allQuizzes.stream().filter((quiz) -> quiz.getHas_won() == false).collect(Collectors.toList());
-
-  //   // for every won quiz, we automatically give out 100 points
-
-  //   // for every correctly answered question, we give 10 points
-  //   // based on this, we sort user by the amounts of points they have
-  
-
-  //   // TODO Auto-generated method stub
-  //   throw new UnsupportedOperationException("Unimplemented method 'rankUsers'");
-  // }
 
 }

@@ -4,7 +4,7 @@ import { Quiz, QuizQuestion, useGetQuizByIdQuery } from "../../state/quiz/quizSl
 function SingleQuiz() {
   const { id } = useParams();
 
-  const numberId = parseInt(id) + 0;
+  const numberId = parseInt(id);
 
   const {
     data: quizData,
@@ -33,7 +33,7 @@ function SingleQuiz() {
 
     return (
       <>
-        <h2>Quiz # {id}</h2>
+        <h2>Quiz</h2>
         {/* <h3>Played on: {datePlayed}</h3> */}
         <section>
           {quizData.has_won ? (

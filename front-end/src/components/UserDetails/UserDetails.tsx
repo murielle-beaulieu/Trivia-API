@@ -1,8 +1,15 @@
+import { useSelector } from "react-redux";
+import styles from "./UserDetails.module.scss";
+import { RootState } from "../../state/store";
+
 function UserDetails() {
+
+    const user = useSelector((state: RootState) => state.auth.user);
+    console.log(user?.email);
+
     return (
-        <>
-        <h2>Details about the logged in user</h2>
-        </>
+        <section className={styles.details}>
+        </section>
     )
 }
 
