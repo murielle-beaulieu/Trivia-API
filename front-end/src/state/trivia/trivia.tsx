@@ -14,8 +14,8 @@ export const Trivia = () => {
   const navigate = useNavigate();
 
   // trivia
-  const set = useSelector((state: RootState) => state.settings);
-  console.log(set.category + " " + set.difficulty);
+  const settings = useSelector((state: RootState) => state.settings);
+  console.log(settings.category + " " + settings.difficulty);
 
   const {
     data: triviaData,
@@ -23,8 +23,8 @@ export const Trivia = () => {
     isLoading,
     isSuccess,
   } = useGetQuestionsQuery({
-    category: set.category,
-    difficulty: set.difficulty,
+    category: settings.category,
+    difficulty: settings.difficulty,
   });
 
   const [addQuizMutation] = useAddQuizMutation();
@@ -112,7 +112,7 @@ export const Trivia = () => {
         userId: currId,
         score: 0,
         has_won: false,
-        difficulty: set.difficulty.toUpperCase(),
+        difficulty: settings.difficulty.toUpperCase(),
         questions: result,
       }).unwrap();
       console.log("fucking fuck yea");
