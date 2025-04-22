@@ -45,7 +45,7 @@ function UserPage() {
   }
 
   function handleLogout() {
-    dispatch(logOut(currentUser));
+    dispatch(logOut());
     navigate("/auth");
   }
 
@@ -56,7 +56,7 @@ function UserPage() {
       <>
         <NavBar>
           <h2>Hello {currentUser.firstName}</h2>
-          <Link to="/">
+          <Link to="/play">
             <button>Start a new game</button>
           </Link>
           <button onClick={() => handleLogout()}>Log out</button>

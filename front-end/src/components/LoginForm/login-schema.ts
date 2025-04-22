@@ -1,7 +1,7 @@
 import * as z from "zod";
 
 export const schema = z.object({
-  email: z.string(),
+  email: z.string().email({message: "Please enter a valid email"}),
   password: z.string(),
 });
 

@@ -1,37 +1,5 @@
-// import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-
-// // interface User {
-// //     id: number
-// //     firstName: string
-// //     email: string
-// // }
-
-// const authSlice = createSlice({
-//     name: 'auth',
-//     initialState: { user: null, token: null },
-//     reducers: {
-//         setCredentials: (state, action) => {
-//             const { user, accessToken } = action.payload
-//             state.user = user
-//             state.token = accessToken
-//         },
-//         logOut: (state, action) => {
-//             state.user = null
-//             state.token = null
-//         }
-//     },
-// })
-
-// export const { setCredentials, logOut } = authSlice.actions
-
-// export default authSlice.reducer
-
-// export const selectCurrentUser = (state: { user: any }) => state.user;
-// export const selectCurrentToken = (state) => state.auth.token
-
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../store"; // Assuming you have a store file defining RootState
-// import { useGetCurrentUserQuery } from "./authApiSlice";
+import { RootState } from "../store";
 
 interface AuthState {
   user: User | null;
@@ -62,12 +30,10 @@ const authSlice = createSlice({
     setCredentials: (state, action: PayloadAction<CredentialsPayload>) => {
       const { token } = action.payload;
       state.token = token;
-      console.log('token ' + state.token)
     },
     logOut: (state) => {
       state.user = null;
       state.token = null;
-      console.log("state after logging out: user = " + state.user + " token =" + state.token)
     }
   },
 });
@@ -77,6 +43,5 @@ export const { setCredentials, logOut } = authSlice.actions;
 
 export default authSlice.reducer;
 
-// Typed selectors
 export const selectCurrentUser = (state: RootState) => state.auth.user;
 export const selectCurrentToken = (state: RootState) => state.auth.token;

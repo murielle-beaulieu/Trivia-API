@@ -20,7 +20,8 @@
 
 button {
   background-color: rgb(254, 239, 123);
-  color: rgb(255, 114, 137);
+  /* color: rgb(255, 114, 137); */
+  color: rgb(26, 34, 93);
   font-size: 1.10em;
   font-weight: bolder;
 }

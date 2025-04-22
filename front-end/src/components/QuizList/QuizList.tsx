@@ -7,6 +7,7 @@ export function QuizList() {
   const { data: currentUser, isLoading, isError } = useGetCurrentUserQuery({});
 
   const quizzes = currentUser.quizzes;
+  quizzes.forEach((q) => console.log(q));
 
   if (isLoading) {
     return (

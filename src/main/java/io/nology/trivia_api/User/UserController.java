@@ -43,7 +43,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User result = this.service.getById(id);
+        User result = this.service.getUserById(id);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -59,11 +59,10 @@ public class UserController {
         return new ResponseEntity<>(toUpdate, HttpStatus.OK);
     }
     
-    // @GetMapping("/leaderboard")
-    // public ResponseEntity<List<Quiz>> getLeaderboard() {
-    //     List<User> userRanked = this.service.rankUsers();
-    //     return new ResponseEntity<>(userRanked, HttpStatus.OK);
-    // }
-    
+    @GetMapping("/beepbeep/{id}")
+    public String beepbepp(@PathVariable Long id) {
+        this.service.calculateScore(id);
+        return "hey";
+    }
     
 }

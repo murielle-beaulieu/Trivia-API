@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import jakarta.validation.Valid;
-
 @Service
 class QuizQuestionService {
 

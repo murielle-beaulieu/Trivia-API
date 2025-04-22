@@ -9,14 +9,15 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import lombok.RequiredArgsConstructor;
-
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
 	
 	private final JwtAuthFilter jwtAuthFilter;
+
+    public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
+        this.jwtAuthFilter = jwtAuthFilter;
+    }
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -29,7 +30,7 @@ public class SecurityConfig {
 				.permitAll()
 				.requestMatchers("/auth/login")
 				.permitAll()
-				.requestMatchers("/quizzes", "/leaderboard", "/quiz-questions", "/quizzes/won","quizzes/{id}", "/users", "/users/{id}", "/users/{id}/quizzes")
+				.requestMatchers("/quizzes", "/leaderboard", "/quiz-questions", "/quizzes/won","/quizzes/{id}", "/users", "/users/{id}", "/users/{id}/quizzes", "/users/beepbeep/{id}")
 				.permitAll()
 				.anyRequest()
 				.authenticated()

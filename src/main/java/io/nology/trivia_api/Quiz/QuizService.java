@@ -97,12 +97,15 @@ class QuizService {
 
         Long numOfQuestions = (long) data.getQuestions().size();
 
-        if (numOfQuestions <= 1) {
-            return score;
-        } else {
+        if (numOfQuestions < 10) {
             score = (long) (numOfQuestions - 1);
-            return score;
         }
+
+        if (numOfQuestions == 0) {
+            score = (long) 0;
+        }
+
+        return score;
 
     }
 
