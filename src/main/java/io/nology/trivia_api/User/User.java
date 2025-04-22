@@ -40,6 +40,9 @@ public class User implements UserDetails {
     private String lastName;
 
     @Column
+    private String gamerTag;
+
+    @Column
     private String email;
 
     @Column

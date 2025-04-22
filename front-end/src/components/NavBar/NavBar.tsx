@@ -1,4 +1,6 @@
-import "./NavBar.module.scss";
+import styles from "./NavBar.module.scss";
+import trivia_logo from "../assets/trivia_logo.png";
+import { Link } from "react-router-dom";
 
 interface NavBarProps {
     children: React.ReactNode;
@@ -7,7 +9,7 @@ interface NavBarProps {
 function NavBar({children}: NavBarProps) {
 
     return (
-        <nav>{children}</nav>
+        <nav><Link to="/"><img src={trivia_logo} className={styles.logo}/></Link>{children}</nav>
     )
 }
 

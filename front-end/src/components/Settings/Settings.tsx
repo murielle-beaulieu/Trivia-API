@@ -12,10 +12,7 @@ interface GameSettingsProps {
 }
 
 function Settings({ onSubmit }: GameSettingsProps) {
-  /* categories */
-  // I'm not sure I want to fetch this data all the time?
   const { data: categoriesData } = useGetCategoriesQuery();
-  console.log(categoriesData?.trivia_categories[0].name);
 
   const { handleSubmit, register } = useForm<GameSettingsData>({
     resolver: zodResolver(schema),
@@ -27,7 +24,7 @@ function Settings({ onSubmit }: GameSettingsProps) {
   console.log("toki " + toki);
 
   return (
-    <>
+    <main>
       <header className={styles.banner}>
         <h1>Start a new game</h1>
       </header>
@@ -56,7 +53,7 @@ function Settings({ onSubmit }: GameSettingsProps) {
           </div>
         </form>
       )}
-    </>
+    </main>
   );
 }
 

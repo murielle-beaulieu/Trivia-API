@@ -1,0 +1,33 @@
+.register_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    text-align: start;
+    height: 22em;
+    width: 18em;
+    margin: auto;
+    padding: 4em 2em;
+    border: 0.1em solid black;
+    input {
+      width: 100%;
+    }
+  }
+  
+  .register_header {
+    text-align: left;
+    border-bottom: 0.05em black solid;
+    margin-bottom: 1em;
+  }
+  
+  .field {
+    margin: 0.5em 0;
+  }
+  
+  .submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10em;
+    padding: 1em;
+  }
+  

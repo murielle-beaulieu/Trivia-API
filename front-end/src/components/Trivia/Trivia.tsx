@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useGetQuestionsQuery } from "./triviaSlice";
-import { AppDispatch, RootState } from "../store";
+import { useGetQuestionsQuery } from "../../state/trivia/triviaSlice";
+import { AppDispatch, RootState } from "../../state/store";
 import styles from "./trivia.module.scss";
-import { increment, reset } from "../counter/counterSlice";
-import { endGame, playAgain, winGame, getPoint } from "../game/gameSlice";
-import { addQuestion, clearQuestions } from "../result/resultSlice";
+import { increment, reset } from "../../state/counter/counterSlice";
+import { endGame, playAgain, winGame, getPoint } from "../../state/game/gameSlice";
+import { addQuestion, clearQuestions } from "../../state/result/resultSlice";
 import { useNavigate } from "react-router-dom";
-import { useAddQuizMutation } from "../quiz/quizSlice";
+import { useAddQuizMutation } from "../../state/quiz/quizSlice";
 import he from "he";
-import { useGetCurrentUserQuery } from "../auth/authApiSlice";
+import { useGetCurrentUserQuery } from "../../state/auth/authApiSlice";
 
 export const Trivia = () => {
   const navigate = useNavigate();
@@ -93,6 +93,7 @@ export const Trivia = () => {
     dispatch(clearQuestions());
     dispatch(reset());
     dispatch(playAgain());
+    console.log("game state after restart: " + isPlaying);
     navigate("/");
   }
 
@@ -100,6 +101,7 @@ export const Trivia = () => {
     submitQuiz();
     dispatch(clearQuestions());
     dispatch(reset());
+    console.log("game state after endgame to user: " + isPlaying);
     navigate("/user");
   }
 
@@ -115,7 +117,6 @@ export const Trivia = () => {
         difficulty: settings.difficulty.toUpperCase(),
         questions: result,
       }).unwrap();
-      console.log("fucking fuck yea");
     } catch (e) {
       console.log(e + " error posting the quiz");
     }

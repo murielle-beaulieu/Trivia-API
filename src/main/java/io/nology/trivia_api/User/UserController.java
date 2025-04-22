@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/users")
@@ -41,7 +43,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User result = this.service.getById(id);
+        User result = this.service.getUserById(id);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -50,12 +52,17 @@ public class UserController {
         List<Quiz> userQuizzes = this.service.getUserQuizzes(id);
         return new ResponseEntity<>(userQuizzes, HttpStatus.OK);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UpdateUserDTO data) {
+        User toUpdate = this.service.updateUser(id, data);
+        return new ResponseEntity<>(toUpdate, HttpStatus.OK);
+    }
     
-    // @GetMapping("/leaderboard")
-    // public ResponseEntity<List<Quiz>> getLeaderboard() {
-    //     List<User> userRanked = this.service.rankUsers();
-    //     return new ResponseEntity<>(userRanked, HttpStatus.OK);
-    // }
-    
+    @GetMapping("/beepbeep/{id}")
+    public String beepbepp(@PathVariable Long id) {
+        this.service.calculateScore(id);
+        return "hey";
+    }
     
 }

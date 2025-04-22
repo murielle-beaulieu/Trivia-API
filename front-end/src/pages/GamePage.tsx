@@ -1,13 +1,7 @@
-// import Counter from "../components/Counter";
-import { Trivia } from "../state/trivia/trivia";
+import { Trivia } from "../components/Trivia/Trivia";
 
-function GamePage () {
-    return (
-        <>
-      <Trivia/>
-      {/* <Counter/> */}
-    </>
-    )
+function GamePage() {
+  return <Trivia />;
 }
 
 export default GamePage;
