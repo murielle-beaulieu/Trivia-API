@@ -1,14 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { QuizList } from "../../components/QuizList/QuizList";
 import { useGetCurrentUserQuery } from "../../state/auth/authApiSlice";
 import styles from "./UserPage.module.scss";
 import NavBar from "../../components/NavBar/NavBar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UserDetails from "../../components/UserDetails/UserDetails";
 import { RootState } from "../../state/store";
+import { logOut } from "../../state/auth/authSlice";
 
 function UserPage() {
   const token = useSelector((state: RootState) => state.auth.token);
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   console.log(token);
 
@@ -29,11 +33,7 @@ function UserPage() {
   }
 
   if (isError) {
-    return (
-      <div>
-        <h2> Error retrieving data </h2>
-      </div>
-    );
+    navigate("/auth");
   }
 
   if (!currentUser) {
@@ -44,35 +44,32 @@ function UserPage() {
     );
   }
 
-  console.log("Current user:", currentUser);
+  function handleLogout() {
+    dispatch(logOut(currentUser));
+    navigate("/auth");
+  }
 
-  // we want to display
-  //   - Quiz List with links to each quiz
-  //   - Options to filter all quizzes by if they were won or lost
-  //
-  //   - Singular quiz
-  //   - The singular quiz should display all answered questions and given answers
-  //   - The singular quiz should also give the score
+  console.log("Current user:", currentUser);
 
   if (currentUser)
     return (
       <>
-        <NavBar className={styles.user_nav}>
-          <h2>
-            Hello {currentUser.firstName} (id #{currentUser.id})
-          </h2>
+        <NavBar>
+          <h2>Hello {currentUser.firstName}</h2>
           <Link to="/">
             <button>Start a new game</button>
           </Link>
+          <button onClick={() => handleLogout()}>Log out</button>
         </NavBar>
-        <section>
-          <h3>User Details: </h3>
-          <UserDetails/>
-        </section>
-        <section>
-          <h3>Quizzes: </h3>
-          <QuizList />
-        </section>
+        <main className={styles.user_main}>
+          <section>
+            <UserDetails />
+          </section>
+          <section>
+            <h3>Quizzes History: </h3>
+            <QuizList />
+          </section>
+        </main>
       </>
     );
 }

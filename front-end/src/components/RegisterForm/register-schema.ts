@@ -2,7 +2,7 @@ import * as z from "zod";
 
 export const schema = z.object({
   firstName: z.string(),
-  lastName: z.string(),
+  gamerTag: z.string(),
   email: z.string(),
   password: z.string(),
 });

@@ -29,7 +29,7 @@ export const quizzesApiSlice = createApi({
         }),
         addQuiz: build.mutation<Quiz, Quiz>({
             query: newQuiz => ({
-              url: "/quizzes",
+              url: "",
               method: 'POST',
               body: newQuiz
             })

@@ -12,3 +12,9 @@ section {
     text-align: left;
 }
 
+.user_main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 70em;
+}

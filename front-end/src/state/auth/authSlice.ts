@@ -43,6 +43,7 @@ interface User {
   firstName: string;
   lastName: string;
   email: string;
+  createdAt: string
 }
 
 interface CredentialsPayload {
@@ -66,6 +67,7 @@ const authSlice = createSlice({
     logOut: (state) => {
       state.user = null;
       state.token = null;
+      console.log("state after logging out: user = " + state.user + " token =" + state.token)
     }
   },
 });

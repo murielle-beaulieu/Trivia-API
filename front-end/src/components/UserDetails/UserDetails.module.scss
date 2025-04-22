@@ -1,6 +1,25 @@
-.details{max-height: 30em;
-width: 30em;
-overflow: scroll;
-border: 1px solid rgb(255, 114, 137);
-padding: 2em;
+.details {
+  display: flex;
+  flex-direction: column;
+  height: 30em;
+  width: 20em;
+  border: 6px solid rgb(255, 114, 137);
+  border-radius: 1em;
+  padding: 2em;
+}
+
+.details_img {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
+    padding: 1em;
+}
+
+.placeholder_img {
+  align-self: center;
+  padding: 1em;
+  border-radius: 50%;
+  height: 8em;
+  width: 8em;
 }
