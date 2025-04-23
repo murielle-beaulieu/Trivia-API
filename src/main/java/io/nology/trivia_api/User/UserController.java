@@ -38,12 +38,15 @@ public class UserController {
     if (user == null) {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+    this.service.calculateScore(user.getId());
+
     return new ResponseEntity<>(user, HttpStatus.OK);
 }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         User result = this.service.getUserById(id);
+        this.service.calculateScore(id);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

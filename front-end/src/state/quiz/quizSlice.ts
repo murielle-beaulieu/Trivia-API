@@ -11,7 +11,7 @@ export interface Quiz {
 
 export interface QuizQuestion {
     quiz_id?: number
-    title: string | undefined
+    title: string
     given_answer: string
     is_correct: boolean
 }

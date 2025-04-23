@@ -4,10 +4,10 @@ import { useGetCurrentUserQuery } from "../../state/auth/authApiSlice";
 import { Quiz } from "../../state/quiz/quizSlice";
 
 export function QuizList() {
-  const { data: currentUser, isLoading, isError } = useGetCurrentUserQuery({});
+  const { data: currentUser, isLoading, isError } = useGetCurrentUserQuery({}, {refetchOnMountOrArgChange: true});
 
   const quizzes = currentUser.quizzes;
-  quizzes.forEach((q) => console.log(q));
+  quizzes.forEach((q: Quiz) => console.log(q));
 
   if (isLoading) {
     return (
@@ -36,20 +36,19 @@ export function QuizList() {
   if (quizzes.length == 0) {
     return <section className={styles.list}>
       <h2>No quizzes just yet !</h2>
-      <Link to={"/"}>Start playing!</Link>
     </section>;
   }
 
   if (quizzes.length > 0) {
     return (
       <section className={styles.list}>
-        {quizzes?.map((quiz: Quiz) => (
+        {quizzes.map((quiz: Quiz) => (
             <Link to={`/quiz/${quiz.id}`}>
           <article>
               <h3>Quiz on difficulty: {quiz.difficulty}</h3>
           </article>
             </Link>
-        ))}
+        )).reverse()}
       </section>
     );
   }

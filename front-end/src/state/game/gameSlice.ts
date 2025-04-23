@@ -28,6 +28,8 @@ const gameSlice = createSlice({
     },
     playAgain: (state) => {
       state.playing = true;
+      state.won = false;
+      state.score = 0;
     },
     winGame: (state) => {
       state.won = true;

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { setCredentials } from "../state/auth/authSlice";
+import { useDispatch} from "react-redux";
+import { setCredentials} from "../state/auth/authSlice";
 import { useLoginMutation, useRegisterMutation } from "../state/auth/authApiSlice";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar/NavBar";
@@ -56,8 +56,8 @@ function AuthPage() {
   return (
     <>
       <NavBar>
-        { authAction == "register" ? <button onClick={() => setAuthAction("login")}>login</button> : 
-        <button onClick={() => setAuthAction("register")}>register</button> }
+        { authAction == "register" ? <button onClick={() => setAuthAction("login")}>Login</button> : 
+        <button onClick={() => setAuthAction("register")}>Register</button> }
       </NavBar>
       {authAction == "login" && (
         <div>

@@ -1,6 +1,5 @@
 package io.nology.trivia_api.auth;
 
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -13,7 +12,6 @@ public class AuthRegisterDTO {
 	@Setter
 	private String firstName;
 
-	@NotBlank
 	@Getter
 	@Setter
 	private String lastName;

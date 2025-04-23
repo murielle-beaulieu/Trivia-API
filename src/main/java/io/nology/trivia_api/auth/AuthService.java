@@ -29,7 +29,7 @@ public class AuthService {
 	private final AuthenticationManager authManager;
 
 	public AuthResponse register(AuthRegisterDTO data) {
-		User user = new User(data.getFirstName(),
+		User user = new User (data.getFirstName(),
 				data.getLastName(),
 				data.getEmail(),
 				passwordEncoder.encode(data.getPassword()));

@@ -1,9 +1,61 @@
 .single_quiz {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 40em;
   width: 80em;
-  border: 6px solid rgb(255, 114, 137);
   border-radius: 1em;
-  padding: 2em;
+  border: 6px solid #1c8bf3;
+  padding: 4em;
+}
+
+.single_question {
+  background-color:rgba(28, 139, 243, 0.323);
+  border-radius: 2em;
+  padding: 1em;
+  margin: 1em;
+  .title {
+    text-decoration: underline;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lost {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1em;
+  border: solid 0.5em #f37c1b;
+  background-color: white;
+  color: #f37c1b;
+  width: 14em;
+  height: 3em;
+}
+
+.won {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1em;
+  border: solid 0.5em #22d77d;
+  background-color: white;
+  color: #22d77d;
+  width: 10em;
+  height: 3em;
+}
+
+.question_list {
+  border-top: 6px solid #1c8bf3;
+  padding-top: 1em;
+  height: 40em;
+  overflow: scroll;
+}
+
+.back {
+  background-color:  #1c8bf3;;
 }

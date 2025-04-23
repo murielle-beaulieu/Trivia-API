@@ -2,12 +2,12 @@
     max-height: 30em;
     width: 32em;
     overflow: scroll;
-    border: 6px solid rgb(255, 114, 137);
+    border: 6px solid rgb(34, 42, 98);
     border-radius: 1em;
     padding: 2em;
 
     article {
-        background-color: rgba(255, 114, 137, 0.293);
+        background-color: rgba(205, 205, 205, 0.293);
         padding: 2em;
         width: 28em;
         &:hover {
@@ -16,6 +16,6 @@
     }
 
     a {
-        color: rgb(255, 114, 137);
+        color: rgb(38, 38, 38);
     }
 }

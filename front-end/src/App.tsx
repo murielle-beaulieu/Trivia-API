@@ -8,19 +8,19 @@ import UserPage from "./pages/UserPage/UserPage.tsx";
 import AuthPage from "./pages/AuthPage.tsx";
 import SingleQuiz from "./components/SingleQuiz/SingleQuiz.tsx";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute.tsx";
-import HomePage from "./pages/HomePage.tsx";
 
 function App() {
   return (
     <BrowserRouter>
       <Provider store={store}>
         <Routes>
-          <Route path="/" element={<SettingsPage />} />
-          <Route path="/play" element={<GamePage />} />
-          <Route path="/auth" element={[<PrivateRoute/>, <AuthPage />]} />
-            <Route path="/user" element={<UserPage />}>
-          </Route>
+          <Route path="/" element={<AuthPage />} />
+          <Route element={<PrivateRoute/>}>
+            <Route path="/user" element={<UserPage />}/>
             <Route path="/quiz/:id" element={<SingleQuiz />} />
+            <Route path="/play" element={<GamePage />} />
+            <Route path="/settings" element={<SettingsPage />} />
+          </Route>
         </Routes>
       </Provider>
     </BrowserRouter>

@@ -4,13 +4,12 @@ import {
   QuizQuestion,
   useGetQuizByIdQuery,
 } from "../../state/quiz/quizSlice";
+import he from "he";
 import NavBar from "../NavBar/NavBar";
 import styles from "./SingleQuiz.module.scss";
 
 function SingleQuiz() {
   const { id } = useParams();
-
-  // const numberId = parseInt(id);
 
   const {
     data: quizData,
@@ -19,7 +18,7 @@ function SingleQuiz() {
     isSuccess,
   } = useGetQuizByIdQuery<Quiz>(id);
 
-  console.log(quizData);
+  const datePlayed = new Date(quizData?.createdAt).toDateString();
 
   if (isError) {
     return (
@@ -42,24 +41,32 @@ function SingleQuiz() {
       <>
         <NavBar>
           <Link to="/user">
-            <button>Go back </button>
+            <button className={styles.back}>Go back </button>
           </Link>
         </NavBar>
         <article className={styles.single_quiz}>
-          <h2>Quiz # {quizData.id}</h2>
-          {quizData.hasWon ? <h2>Won</h2> : <h2>Lost</h2>}
+          <section className={styles.header}>
+            <span>
+            <h3>Quiz #{quizData.id}</h3>
+            <h3>Played on: {datePlayed}</h3>
+            </span>
+            {quizData.hasWon ? 
+            <div className={styles.won}><h3>Game Result : Won</h3></div>  : <div className={styles.lost}><h3>Game Result : Lost</h3></div> }
+          </section>
           <h2>Questions</h2>
+          <article className={styles.question_list}>
           {quizData.quiz_questions.map((q: QuizQuestion) => (
-            <section>
-              <p>Question: {q.title}</p>
+            <section className={styles.single_question}>
+              <p className={styles.title}>Question: {he.decode(q.title)}</p>
               {q.is_correct ? (
-                <p>Correctly answered: true </p>
+                <p>Correctly answered: Yes </p>
               ) : (
-                <p>Correctly answered: false </p>
+                <p>Correctly answered: No </p>
               )}
-              <p>Answer given: {q.given_answer}</p>
+              <p>Answer given: {he.decode(q.given_answer)}</p>
             </section>
           ))}
+          </article>
         </article>
       </>
     );

@@ -10,6 +10,8 @@ nav {
 section {
     display: center;
     text-align: left;
+    color: rgb(34, 42, 98);
+
 }
 
 .user_main {
@@ -17,4 +19,9 @@ section {
     flex-direction: row;
     justify-content: space-between;
     width: 70em;
+}
+
+h4 {
+    font-style: italic;
+    color: #868486;
 }

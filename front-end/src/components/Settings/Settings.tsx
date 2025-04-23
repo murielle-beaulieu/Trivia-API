@@ -6,17 +6,26 @@ import { GameSettingsData, schema } from "./settings-schema";
 import { Difficulty } from "../../enums/difficulty";
 import { selectCurrentToken } from "../../state/auth/authSlice";
 import { useSelector } from "react-redux";
+import NavBar from "../NavBar/NavBar";
+import { Link } from "react-router-dom";
+import { RootState } from "../../state/store";
 
 interface GameSettingsProps {
   onSubmit: (data: GameSettingsData) => unknown;
 }
 
 function Settings({ onSubmit }: GameSettingsProps) {
+
   const { data: categoriesData } = useGetCategoriesQuery();
 
   const { handleSubmit, register } = useForm<GameSettingsData>({
     resolver: zodResolver(schema),
   });
+
+  const count = useSelector((state: RootState) => state.counter.value);
+console.log("the count should be zero: " + count);
+    const isPlaying = useSelector((state: RootState) => state.game.playing);
+    console.log(isPlaying + " is playing from settings");
 
   const difficulties = Object.values(Difficulty);
 
@@ -24,9 +33,12 @@ function Settings({ onSubmit }: GameSettingsProps) {
   console.log("toki " + toki);
 
   return (
+    <>
+    <NavBar><Link to="/user"><button>Back to profile</button></Link></NavBar>
     <main>
       <header className={styles.banner}>
         <h1>Start a new game</h1>
+        <h2>Choose your game settings and start playing!</h2>
       </header>
       {categoriesData && (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -54,6 +66,7 @@ function Settings({ onSubmit }: GameSettingsProps) {
         </form>
       )}
     </main>
+    </>
   );
 }
 

@@ -3,17 +3,22 @@ import { useGetQuestionsQuery } from "../../state/trivia/triviaSlice";
 import { AppDispatch, RootState } from "../../state/store";
 import styles from "./trivia.module.scss";
 import { increment, reset } from "../../state/counter/counterSlice";
-import { endGame, playAgain, winGame, getPoint } from "../../state/game/gameSlice";
+import {
+  endGame,
+  playAgain,
+  winGame,
+  getPoint,
+} from "../../state/game/gameSlice";
 import { addQuestion, clearQuestions } from "../../state/result/resultSlice";
 import { useNavigate } from "react-router-dom";
 import { useAddQuizMutation } from "../../state/quiz/quizSlice";
 import he from "he";
 import { useGetCurrentUserQuery } from "../../state/auth/authApiSlice";
+import NavBar from "../NavBar/NavBar";
 
 export const Trivia = () => {
   const navigate = useNavigate();
 
-  // trivia
   const settings = useSelector((state: RootState) => state.settings);
   console.log(settings.category + " " + settings.difficulty);
 
@@ -48,6 +53,25 @@ export const Trivia = () => {
   // score
   const gameScore = useSelector((state: RootState) => state.game.score);
   console.log(gameScore);
+
+  const { data: currentUser } = useGetCurrentUserQuery({});
+  const currId = currentUser.id;
+  console.log(currId);
+
+  async function submitQuiz() {
+    try {
+      await addQuizMutation({
+        userId: currId,
+        score: 0,
+        has_won: false,
+        difficulty: settings.difficulty.toUpperCase(),
+        questions: result,
+      }).unwrap();
+      console.log("submitted quiz")
+    } catch (e) {
+      console.log(e + " error posting the quiz");
+    }
+  }
 
   //question count
   const countQuestion = gameScore + 1;
@@ -89,40 +113,29 @@ export const Trivia = () => {
   }
 
   function restart() {
-    submitQuiz();
-    dispatch(clearQuestions());
-    dispatch(reset());
-    dispatch(playAgain());
-    console.log("game state after restart: " + isPlaying);
-    navigate("/");
+    submitQuiz().then(() => {
+      dispatch(clearQuestions());
+      dispatch(reset());
+      dispatch(playAgain());
+      
+      setTimeout(() => {
+        navigate("/settings");
+      }, 0);
+    });
   }
+
 
   function endGameToUserPage() {
-    submitQuiz();
-    dispatch(clearQuestions());
-    dispatch(reset());
-    console.log("game state after endgame to user: " + isPlaying);
-    navigate("/user");
+    submitQuiz().then(() => {
+      dispatch(clearQuestions());
+      dispatch(reset());    
+      dispatch(playAgain());
+      console.log("game state after endgame to user: " + isPlaying);
+      navigate("/user");
+    })
   }
 
-    const { data: currentUser } = useGetCurrentUserQuery({});
-    const currId  = currentUser.id;
-
-  async function submitQuiz() {
-    try {
-      await addQuizMutation({
-        userId: currId,
-        score: 0,
-        has_won: false,
-        difficulty: settings.difficulty.toUpperCase(),
-        questions: result,
-      }).unwrap();
-    } catch (e) {
-      console.log(e + " error posting the quiz");
-    }
-  }
-
-  if ((gameScore == 10)) {
+  if (gameScore == 10) {
     console.log("YOU WON!");
     dispatch(winGame());
   }
@@ -160,6 +173,9 @@ export const Trivia = () => {
   if (isSuccess && isPlaying) {
     return (
       <>
+        <NavBar>
+          <h2>Score: {gameScore}/10</h2>
+        </NavBar>
         <article className={styles.question_card}>
           <section className={styles.question_header}>
             <h2>Question # {countQuestion}</h2>
@@ -179,19 +195,19 @@ export const Trivia = () => {
     );
   }
 
-  if (!isPlaying) {
-    return (
-      <>
-        <h2>Nice try! Your finishing score is {gameScore}/10</h2>
-        <button className={styles.play} onClick={() => restart()}>
-          Play again?
-        </button>
-        <button className={styles.play} onClick={() => endGameToUserPage()}>
-          Go to profile
-        </button>
-      </>
-    );
-  }
+if (!isPlaying) {
+  return (
+    <div className={styles.gameEnd}>
+      <h2>Nice try! Your finishing score is {gameScore}/10</h2>
+      <button className={styles.play} onClick={restart}>
+        Play Again
+      </button>
+      <button className={styles.play} onClick={endGameToUserPage}>
+        Go to Profile
+      </button>
+    </div>
+  );
+}
 
   return null;
 };
