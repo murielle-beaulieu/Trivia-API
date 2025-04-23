@@ -1,21 +1,21 @@
 .list {
-    max-height: 30em;
-    width: 32em;
-    overflow: scroll;
-    border: 6px solid rgb(34, 42, 98);
-    border-radius: 1em;
+  max-height: 30em;
+  width: 32em;
+  overflow: scroll;
+  border: 6px solid #454e8e;
+  border-radius: 1em;
+  padding: 2em;
+
+  article {
+    background-color: rgba(205, 205, 205, 0.293);
     padding: 2em;
-
-    article {
-        background-color: rgba(205, 205, 205, 0.293);
-        padding: 2em;
-        width: 28em;
-        &:hover {
-            background-color: rgba(241, 159, 173, 0.293);
-        }
+    width: 28em;
+    &:hover {
+      background-color: rgba(241, 159, 173, 0.293);
     }
+  }
 
-    a {
-        color: rgb(38, 38, 38);
-    }
+  a {
+    color: rgb(38, 38, 38);
+  }
 }

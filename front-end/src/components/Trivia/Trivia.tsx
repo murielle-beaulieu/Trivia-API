@@ -55,13 +55,12 @@ export const Trivia = () => {
   console.log(gameScore);
 
   const { data: currentUser } = useGetCurrentUserQuery({});
-  const currId = currentUser.id;
-  console.log(currId);
+  const currentUserId = currentUser.id;
 
   async function submitQuiz() {
     try {
       await addQuizMutation({
-        userId: currId,
+        userId: currentUserId,
         score: 0,
         has_won: false,
         difficulty: settings.difficulty.toUpperCase(),
@@ -159,7 +158,10 @@ export const Trivia = () => {
   if (win) {
     return (
       <>
-        <h2>CONGRATS YOU WON!</h2>
+       <NavBar>
+        <h2>Great work!</h2>
+       </NavBar>
+        <h1>🎉🎉 CONGRATS YOU WON!  🎉🎉</h1>
         <button className={styles.play} onClick={() => restart()}>
           Play again?
         </button>
@@ -197,6 +199,10 @@ export const Trivia = () => {
 
 if (!isPlaying) {
   return (
+    <>
+    <NavBar>
+      <h2>Better luck next time!</h2>
+    </NavBar>
     <div className={styles.gameEnd}>
       <h2>Nice try! Your finishing score is {gameScore}/10</h2>
       <button className={styles.play} onClick={restart}>
@@ -206,6 +212,7 @@ if (!isPlaying) {
         Go to Profile
       </button>
     </div>
+    </>
   );
 }
 

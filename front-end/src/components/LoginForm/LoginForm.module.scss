@@ -4,24 +4,26 @@
   justify-content: start;
   text-align: start;
   font-size: 1.15em;
-  color: rgb(34, 42, 98);
+  color: #454e8e;
   height: 18em;
   width: 20em;
   margin: auto;
   padding: 5em 4em;
-  border: 1em solid rgb(34, 42, 98);
+  border: 0.75em solid #454e8e;
   border-radius: 10%;
+  
   input {
     width: 100%;
     font-size: 1.15em;
     border-radius: 0.3em;
     margin-top: 0.5em;
+    border: 1px solid #454e8e;
   }
 }
 
 .login_header {
   text-align: left;
-  border-bottom: 0.05em solid rgb(34, 42, 98);
+  border-bottom: 0.05em solid #454e8e;
   margin-bottom: 2em;
 }
 
